@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="A gamified zero-to-hero revision hub for the Advanced Algorithms module: complexity, Big O, C pointers and linked lists, with TD and lab solutions and mock exams.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Advanced Algorithms – Revision Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f4f8;--surface:#fff;--text:#18212f;--muted:#5c6a7e;--rule:#d8dee8;--soft:#e8edf6;--grid:rgba(31,79,216,.045);--brand:#1f4fd8;--c1:#1f4fd8;--c2:#0a7d66;--c3:#7c3aed;--c:var(--brand);--side:272px;--serif:"Source Serif 4",Georgia,serif;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141d;--surface:#171f2e;--text:#e6ebf3;--muted:#97a4b9;--rule:#2a3446;--soft:#1f2940;--grid:rgba(125,162,255,.05);--brand:#7da2ff;--c1:#7da2ff;--c2:#4fd1b0;--c3:#b794f6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f141d;--surface:#171f2e;--text:#e6ebf3;--muted:#97a4b9;--rule:#2a3446;--soft:#1f2940;--grid:rgba(125,162,255,.05);--brand:#7da2ff;--c1:#7da2ff;--c2:#4fd1b0;--c3:#b794f6;color-scheme:dark}
+*,::before,::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg) linear-gradient(var(--grid) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/28px 28px;color:var(--text);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+[data-a="1"]{--c:var(--c1)}[data-a="2"]{--c:var(--c2)}[data-a="3"]{--c:var(--c3)}
+:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+button{font-family:var(--sans)}
+
+/* Sidebar */
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);display:flex;flex-direction:column;gap:4px;padding:calc(22px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px));background:var(--surface);border-right:1px solid var(--rule);overflow-y:auto;z-index:30}
+.brand{display:flex;align-items:center;gap:10px;margin:0 8px 20px;font:700 19px var(--serif)}
+.logo{width:32px;height:32px;display:grid;place-items:center;border-radius:6px;background:var(--brand);color:var(--bg);font:700 17px var(--serif)}
+.nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;color:var(--text);text-decoration:none;font-weight:500;font-size:15px}
+.nav a:hover{background:var(--soft)}
+.nav a.on{background:var(--soft);color:var(--c,var(--brand));font-weight:600}
+.dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--c,var(--muted))}
+.sub{display:none;margin:2px 0 8px 14px;padding-left:10px;border-left:2px solid var(--rule)}
+.grp.open .sub{display:block}
+.sub a{padding:5px 10px;font-size:14px;font-weight:400;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.sub a.on{color:var(--c);background:none;font-weight:600}
+.theme{margin-top:auto;padding:9px 10px;border:1px solid var(--rule);border-radius:6px;background:none;color:var(--muted);font-size:14px;cursor:pointer;text-align:left}
+.theme:hover{color:var(--text);border-color:var(--muted)}
+.top{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;align-items:center;gap:8px;padding:8px 12px;background:var(--surface);border-bottom:1px solid var(--rule);font:700 17px var(--serif)}
+.menu{background:none;border:0;color:var(--text);font-size:22px;padding:4px 8px;cursor:pointer}
+
+/* Main */
+main{margin-left:var(--side);padding:clamp(24px,5vw,64px) clamp(18px,4vw,56px) 96px;outline:0;font:400 18px/1.75 var(--serif)}
+main>*{max-width:740px;margin-inline:auto}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;margin:0}
+h1{font-size:clamp(32px,6vw,48px);margin:4px 0 14px}
+h2{font-size:clamp(27px,4.5vw,36px)}
+article h3{font-size:22px;margin:38px 0 8px}
+p{margin:0 0 14px}
+.lead{font-size:20px;color:var(--muted)}
+ul,ol{padding-left:22px;margin:0 0 16px}li{margin:4px 0}
+code{font:.86em "IBM Plex Mono",ui-monospace,Menlo,monospace;background:var(--soft);padding:2px 6px;border-radius:4px}
+pre{margin:18px 0;padding:14px 16px;background:var(--surface);border:1px solid var(--rule);border-radius:4px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0}
+.tw{overflow-x:auto;margin:18px 0}
+table{border-collapse:collapse;width:100%;font:400 15px/1.5 var(--sans)}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--rule)}
+th{color:var(--muted);font-weight:600}
+.kicker{margin:0 0 2px;font:600 15px var(--sans);color:var(--c)}
+.meta{margin:6px 0 0;font:400 14px var(--sans);color:var(--muted)}
+.ahead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:30px;padding-bottom:22px;border-bottom:1px solid var(--rule)}
+
+/* Home and section index */
+.rows{margin:28px 0;border-top:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:18px 14px 18px 18px;border-bottom:1px solid var(--rule);border-left:4px solid var(--c);color:inherit;text-decoration:none;background:var(--surface)}
+.row:hover{background:var(--soft)}
+.row b{font:600 21px/1.3 var(--serif)}
+.row span{font:400 14px var(--sans);color:var(--muted);align-self:center;text-align:right}
+.row small{grid-column:1;font:400 15px/1.5 var(--sans);color:var(--muted)}
+
+/* Callouts */
+.callout{margin:20px 0;padding:12px 18px;border-left:4px solid var(--k,var(--c));border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--k,var(--c)) 9%,var(--surface))}
+.callout::before{content:attr(data-t);display:block;font:600 14px var(--sans);color:var(--k,var(--c))}
+.callout.tip{--k:var(--c2)}.callout.warn{--k:#c0392b}
+.callout p:last-child{margin:0}
+.formula{margin:18px 0;padding:14px;text-align:center;font-size:21px;background:var(--surface);border:1px dashed var(--rule);border-radius:4px}
+
+/* Exercises and questions */
+article{counter-reset:ex}
+.ex{counter-increment:ex;margin:0 0 22px;padding:20px 22px;background:var(--surface);border:1px solid var(--rule);border-radius:4px}
+.ex>h3{display:flex;align-items:center;gap:12px;margin:0 0 10px;font-size:20px}
+.ex>h3::before{content:counter(ex);flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--c);color:var(--bg);font:600 15px var(--sans)}
+.pts{margin-left:auto;padding:2px 10px;border:1px solid var(--rule);border-radius:99px;font:500 13px var(--sans);color:var(--muted)}
+.opts{list-style:none;padding:0}
+.opts li{margin:6px 0;padding:8px 12px;border:1px solid var(--rule);border-radius:4px}
+
+/* Reveal: the signature interaction */
+.sol-btn,.reveal{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1.5px solid var(--c);border-radius:6px;background:none;color:var(--c);font:600 14px var(--sans);cursor:pointer;transition:background .15s,color .15s}
+.sol-btn::before{content:"▸";transition:transform .25s}
+.sol-btn[aria-expanded="true"]::before{transform:rotate(90deg)}
+.sol-btn:hover,.sol-btn[aria-expanded="true"]{background:var(--c);color:var(--bg)}
+.reveal{border-color:var(--rule);color:var(--muted)}
+.reveal:hover{border-color:var(--c);color:var(--c)}
+.sol-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.sol-wrap.open{grid-template-rows:1fr}
+.solution{min-height:0;overflow:hidden;visibility:hidden;transition:visibility .35s}
+.open>.solution{visibility:visible}
+.sbody{margin-top:14px;padding:14px 20px;border-left:4px solid var(--c);border-radius:0 4px 4px 0;background:color-mix(in srgb,var(--c) 8%,var(--surface))}
+.sbody::before{content:attr(data-l);display:block;margin-bottom:6px;font:600 14px var(--sans);color:var(--c)}
+.sbody>:last-child{margin-bottom:0}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:44px;font:500 15px var(--sans)}
+.pager a{padding:10px 16px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);color:var(--text);text-decoration:none}
+.pager a:hover{border-color:var(--c);color:var(--c)}
+.pager .nx{margin-left:auto}
+
+/* Mobile */
+.scrim{position:fixed;inset:0;background:rgba(8,12,22,.55);z-index:25}
+@media(max-width:900px){
+ .top{display:flex}main{margin-left:0;font-size:17px}
+ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:21}
+ .side{transform:translateX(-100%);visibility:hidden;transition:transform .25s,visibility .25s}
+ .side.open{transform:none;visibility:visible}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== Game layer: XP, ranks, quizzes, timers, playground ===== */
+:root{--c4:#b45309;--ok:#0a7d66;--bad:#c0392b}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--c4:#f6ad55;--ok:#4fd1b0;--bad:#ff7b6b}}
+:root[data-theme="dark"]{--c4:#f6ad55;--ok:#4fd1b0;--bad:#ff7b6b}
+[data-a="4"]{--c:var(--c4)}
+.xp{margin:-8px 8px 18px;font:500 13px/1.4 var(--sans);color:var(--muted)}
+.xp b{color:var(--text);font-weight:600}
+.bar{height:8px;margin:6px 0 4px;border-radius:99px;background:var(--soft);overflow:hidden}
+.fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));transition:width .5s ease}
+.sub a.done::before,.row.done b::after{content:"✓ ";color:var(--ok);font-weight:700}
+.row.done b::after{content:" ✓"}
+#hud{margin:24px 0;padding:18px 20px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;font:400 15px/1.5 var(--sans)}
+#hud .rank{font:700 24px/1.2 var(--serif);margin:2px 0 4px}
+#hud .bar{height:12px}
+#hud .stats{display:flex;flex-wrap:wrap;gap:6px 20px;color:var(--muted);margin-top:6px}
+#hud a{color:var(--brand);font-weight:600}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badge{padding:3px 10px;border:1px solid var(--rule);border-radius:99px;font:500 13px var(--sans);color:var(--muted);opacity:.55}
+.badge.on{opacity:1;color:var(--text);border-color:var(--c2);background:color-mix(in srgb,var(--c2) 10%,var(--surface))}
+.claim{margin:40px 0 0;padding:18px 20px;border:1.5px dashed var(--c);border-radius:6px;text-align:center;font:400 15px/1.5 var(--sans);background:color-mix(in srgb,var(--c) 5%,var(--surface))}
+.claim p{margin:0 0 10px;color:var(--muted)}
+.claim button,.go,.timer button,.play button{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1.5px solid var(--c);border-radius:6px;background:var(--c);color:var(--bg);font:600 14px var(--sans);cursor:pointer;text-decoration:none}
+.claim.done{border-style:solid;border-color:var(--ok)}
+.claim.done button{background:none;color:var(--ok);border-color:var(--ok)}
+.go{margin-top:8px}
+.go:hover,.claim button:hover{filter:brightness(1.08)}
+.quiz li{cursor:pointer;transition:background .15s,border-color .15s;font:400 16px/1.5 var(--sans)}
+.quiz li:hover{border-color:var(--c)}
+.quiz li.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--surface))}
+.quiz li.ok::after{content:"  ✓ correct";color:var(--ok);font-weight:600}
+.quiz li.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--surface))}
+.quiz li.bad::after{content:"  ✗ try again";color:var(--bad);font-weight:600}
+.timer{display:flex;align-items:center;gap:14px;margin:0 0 26px;font:600 15px var(--sans)}
+.timer .clock{font:600 26px "IBM Plex Mono",monospace;min-width:7ch}
+.timer.late .clock{color:var(--bad)}
+.timer button.ghost{background:none;color:var(--c)}
+figure.wb{margin:14px 0 18px}
+figure.wb img{display:block;width:100%;max-width:480px;height:auto;border-radius:4px;border:1px solid var(--rule)}
+figure.wb figcaption{margin-top:6px;font:400 14px/1.5 var(--sans);color:var(--muted)}
+.play{margin:18px 0 26px;padding:18px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;font:400 15px/1.5 var(--sans)}
+.play .ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.play label{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px}
+.play input{width:84px;padding:7px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--bg);color:var(--text);font:500 14px "IBM Plex Mono",monospace}
+.play button{padding:6px 12px;font-size:13px;background:none;color:var(--c)}
+.play button:hover{background:var(--c);color:var(--bg)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:64px;margin:12px 0;padding:12px;border-radius:6px;background:var(--soft);font:500 14px "IBM Plex Mono",monospace}
+.chain .hd{color:var(--c);font-weight:600}
+.nd{display:inline-grid;grid-template-columns:auto auto;border:2px solid var(--c);border-radius:5px;background:var(--surface);overflow:hidden;animation:pop .35s ease}
+.nd span{padding:6px 9px}.nd span+span{border-left:2px solid var(--c);color:var(--muted)}
+.nd.hot{box-shadow:0 0 0 3px color-mix(in srgb,var(--c2) 45%,transparent);border-color:var(--c2)}
+.arrow{color:var(--muted)}.nul{color:var(--muted);font-style:italic}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.play pre{margin:8px 0 0;font-size:13px}
+.play .msg{margin-top:8px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<aside class="side" id="side">
+  <div class="brand"><span class="logo">A</span>Advanced Algorithms</div>
+  <nav class="nav" aria-label="Sections"></nav>
+  <button class="theme" type="button">Switch theme</button>
+</aside>
+<div class="scrim" hidden></div>
+<header class="top"><button class="menu" type="button" aria-label="Open menu" aria-expanded="false">☰</button>Advanced Algorithms</header>
+
+<!--
+  HOW TO ADD CONTENT (the sidebar, section lists, headers, solution buttons and previous/next links are all built automatically):
+  • New chapter / TD / exam  → copy an <article> inside its <section class="view"> and change id, data-kicker, data-title, data-meta.
+  • New exercise or question → copy a <div class="ex"> block.
+  • Hidden answer            → put it in <div class="solution"> (optional data-label="answer"); the button is added for you.
+  • Components               → .lead, h3, ul/ol, .callout (+ .tip / .warn), .formula, .tw>table, pre>code, .opts
+-->
+<main id="main" tabindex="-1">
+
+<section id="home">
+  <p class="kicker" style="--c:var(--c3)">Advanced Algorithms · EIDIA / UEMF · Pr. Abebaw Degu</p>
+  <h1>From zero to 20/20</h1>
+  <p class="lead">One quest from "what is a loop costing me?" to writing a full linked list in C from scratch. Every lecture slide, every TD exercise, every lab exercise and the whiteboard sessions are covered here, in the order a beginner should learn them.</p>
+
+  <div id="hud"></div>
+
+  <h3>How to play</h3>
+  <ol>
+    <li><strong>Play the levels in order.</strong> Each one builds on the last. World 1 is about <em>measuring</em> algorithms (complexity). World 2 is about <em>building</em> them in C (pointers and linked lists).</li>
+    <li><strong>Every level has the same four steps:</strong> ① the concept explained like you're 5, ② a tiny piece of syntax, ③ the challenge from your TD or lab, ④ the hidden solution with a line-by-line breakdown.</li>
+    <li><strong>Try before you reveal.</strong> Take out a sheet of paper, try each challenge for at least 5 minutes, <em>then</em> open the solution. Seeing an answer is not the same as being able to produce one.</li>
+    <li><strong>Claim your XP.</strong> At the bottom of each level, mark it cleared once you could redo every challenge without looking. Your progress is saved in this browser.</li>
+    <li><strong>Fight the Final Boss.</strong> Two timed mock exams, scored out of 20. Then keep the Cheat Codes open the night before the exam.</li>
+  </ol>
+  <div class="callout tip" data-t="If you only have one evening"><p>Read the three Cheat Codes, then do Level 3 (loops), Level 6 (pointers), Level 9 (deletion), then Mock Exam 1. That covers the questions most likely to be on the paper.</p></div>
+
+  <div class="rows" id="homerows"></div>
+</section>
+
+<!-- ============ WORLD 1: COMPLEXITY ============ -->
+<section class="view" id="world1" data-a="1" data-title="World 1 · Complexity" data-unit="level" data-desc="Learn to measure how fast an algorithm is before you write it. Chapter 1 and the whole Complexity TD.">
+
+  <article id="lvl-0" data-kicker="Level 0" data-title="Boot Camp: Data, ADTs and Data Structures" data-meta="+100 XP · about 20 minutes · Chapter 1, first part" data-xp="100">
+    <p class="lead">Before you measure anything, you need the vocabulary. These definitions are short, easy marks in the theory part of the exam.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the kitchen"><p><strong>Data</strong> is the raw groceries: eggs, flour, sugar. On their own they don't mean much. <strong>Information</strong> is the cake: data that has been processed until it means something.</p><p>A <strong>data structure</strong> is how you arrange the kitchen: spices on a rack, plates stacked, ingredients in labelled jars. The same groceries can be arranged in different ways, and some arrangements make cooking much faster.</p></div>
+
+    <p><strong>Data</strong> is the quantities, characters or symbols a computer stores and operates on. In <code>a + b</code>, <code>a</code> and <code>b</code> are data. Data becomes <strong>information</strong> once it is processed and organised so a human can extract meaning from it.</p>
+
+    <p>A <strong>data type</strong> defines two things:</p>
+    <ol><li>a <strong>domain of values</strong> (for <code>int</code>: whole numbers);</li><li>the <strong>operations allowed</strong> on those values (for <code>int</code>: <code>+ - * /</code>, bitwise operations, comparisons…).</li></ol>
+
+    <p>A <strong>user-defined data type</strong> is one you build yourself, usually with <code>struct</code>:</p>
+<pre><code>struct point {   // a new type called "struct point"
+    int x;       // first member: an int
+    int y;       // second member: another int
+};</code></pre>
+
+    <div class="callout" data-t="Analogy: the TV remote = ADT"><p>An <strong>Abstract Data Type (ADT)</strong> is the remote control: buttons labelled <em>volume up</em>, <em>next channel</em>, <em>power</em>. You know <em>what</em> each button does, not <em>how</em> the TV does it. The <strong>data structure</strong> is the electronics inside the TV, the actual wires that make it happen.</p><p><strong>ADT = what to do (blueprint). Data structure = how to do it (implementation).</strong></p></div>
+
+    <div class="tw"><table><thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+      <tr><td>ADT</td><td>Logical behaviour: the operations and what they do, with no implementation details</td><td>"List: insert, delete, search"</td></tr>
+      <tr><td>Data structure</td><td>Concrete implementation of an ADT using memory, pointers, arrays…</td><td>Singly linked list with <code>struct node</code></td></tr>
+      <tr><td>Client program</td><td>Code that <em>uses</em> the ADT through its interface (exterior details)</td><td>Your <code>main()</code> calling <code>insertEnd()</code></td></tr>
+      <tr><td>Implementation</td><td>Code that <em>builds</em> the data structure (interior details)</td><td>The body of <code>insertEnd()</code></td></tr>
+    </tbody></table></div>
+
+    <p><strong>Why use ADTs?</strong> The client doesn't have to worry about how the operations are done. That gives you the three advantages of data structures from the slides: <strong>efficiency</strong> (the right structure saves time and space), <strong>reusability</strong> (many clients share one implementation) and <strong>abstraction</strong> (clients ignore internal details).</p>
+
+    <p>When you pick a data structure for an ADT you compare: (1) the <strong>space</strong> it needs, (2) the <strong>time</strong> each basic operation takes, (3) how <strong>complex</strong> it is to program.</p>
+
+    <h3>2 · The Families of Data Structures</h3>
+    <div class="tw"><table><thead><tr><th></th><th>Definition</th><th>Examples</th></tr></thead><tbody>
+      <tr><td><strong>Linear</strong></td><td>Elements arranged one after another, in sequence</td><td>Array, stack, queue, singly linked list</td></tr>
+      <tr><td><strong>Non-linear</strong></td><td>Elements not in a single sequence (branches, networks)</td><td>Tree, graph</td></tr>
+      <tr><td><strong>Static</strong></td><td>Memory allocated at <em>compile time</em>, fixed maximum size. Fast access, but costly insert/delete</td><td>Array</td></tr>
+      <tr><td><strong>Dynamic</strong></td><td>Memory allocated at <em>run time</em>, flexible size. Easy insert/delete, but access depends on the structure (O(n) list, O(log n) balanced tree)</td><td>Linked list, tree</td></tr>
+    </tbody></table></div>
+    <div class="callout" data-t="Analogy: static vs dynamic"><p>A <strong>static</strong> structure is a cinema hall with exactly 100 fixed seats: finding seat 42 is instant, but a 101st person can't come in. A <strong>dynamic</strong> structure is a picnic: anybody can bring a blanket and join, but there's no seat number, so to find your friend you walk around asking.</p></div>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>Quick-fire quiz <span class="pts">warm-up</span></h3>
+      <p>Click an option to check it. (a) Which statement best describes an ADT?</p>
+      <ul class="opts quiz"><li>A. A list implemented with nodes and pointers</li><li data-ok>B. A description of operations and their behaviour, independent of the implementation</li><li>C. A data type built into the C language</li></ul>
+      <p>(b) Which of these is a non-linear data structure?</p>
+      <ul class="opts quiz"><li>A. Queue</li><li>B. Singly linked list</li><li data-ok>C. Graph</li><li>D. Array</li></ul>
+      <p>(c) A data type is defined by…</p>
+      <ul class="opts quiz"><li>A. its size in bytes only</li><li data-ok>B. a domain of values and the operations allowed on them</li><li>C. the variables that use it</li></ul>
+      <div class="solution" data-label="answers">
+        <p><strong>(a) B.</strong> A is a data structure (an implementation). C is a primitive type.</p>
+        <p><strong>(b) C.</strong> A graph has no single sequential order. Queues, lists and arrays are linear.</p>
+        <p><strong>(c) B.</strong> Memorise the two characteristics: <em>domain</em> and <em>operations</em>.</p>
+      </div>
+    </div>
+    <div class="ex">
+      <h3>Explain in one sentence <span class="pts">exam style</span></h3>
+      <p>Explain the difference between an ADT and a data structure, giving one example of each. Then classify an array and a linked list as static/dynamic and say one advantage and one disadvantage of each.</p>
+      <div class="solution" data-label="model answer">
+        <p>An <strong>ADT</strong> specifies <em>what</em> operations are possible and how they behave without saying how they are implemented (e.g. a List ADT with insert, delete, search). A <strong>data structure</strong> is a concrete <em>implementation</em> of an ADT in memory (e.g. a singly linked list using <code>struct node</code> and pointers).</p>
+        <ul>
+          <li><strong>Array: static.</strong> Advantage: O(1) access by index. Disadvantage: fixed size, and insert/delete at the start or middle costs O(n) because of shifting.</li>
+          <li><strong>Linked list: dynamic.</strong> Advantage: grows and shrinks at run time, and inserting/deleting just relinks pointers (no shifting). Disadvantage: no direct indexing, so reaching the k-th element costs O(n).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>ADT = what (blueprint). Data structure = how (implementation). Linear vs non-linear depends on the shape. Static vs dynamic depends on <em>when</em> the memory is allocated.</p></div>
+  </article>
+
+  <article id="lvl-1" data-kicker="Level 1" data-title="Counting Steps: What Does an Algorithm Cost?" data-meta="+150 XP · about 35 minutes · TD Part B" data-xp="150">
+    <p class="lead">Why don't we just time programs with a stopwatch? Because the answer changes with the machine. Instead we count <em>steps</em> as a function of the input size <code>n</code>.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the pizza delivery"><p>You want to compare two pizza delivery drivers. Timing them one evening is unfair: one had traffic, one had a faster scooter. A fairer question is: <em>"How many streets does each driver cross for an order <code>n</code> streets away?"</em> That number doesn't depend on the scooter. That's what <strong>f(n)</strong> is: the number of basic steps for an input of size <code>n</code>.</p></div>
+
+    <p>The slides list the problems with measuring exact running time on a real machine:</p>
+    <ul><li>For some input sizes structure A wins, for others structure B wins.</li><li>On one machine A wins, on another machine B wins.</li></ul>
+    <p>So we count operations instead, and write the count as a function <strong>f(n)</strong> (or <strong>T(n)</strong>) of the input size <code>n</code>.</p>
+
+    <h3>2 · The Syntax / Example: two ways to count</h3>
+    <div class="tw"><table><thead><tr><th>Model</th><th>Rule</th><th><code>sum = sum + i * i;</code> costs</th></tr></thead><tbody>
+      <tr><td><strong>Statement-count</strong></td><td>Each executed statement = 1 unit</td><td>1</td></tr>
+      <tr><td><strong>Primitive-operation</strong> (the TD's model)</td><td>Each operator = 1 unit: <code>=</code>, <code>+</code>, <code>*</code>, <code>&lt;=</code>, <code>++</code>, <code>return</code>…</td><td>3 (<code>*</code>, <code>+</code>, <code>=</code>)</td></tr>
+    </tbody></table></div>
+
+<pre><code>for (int i = 0; i &lt; n; i++) {   // the loop runs for i = 0, 1, ..., n-1  -&gt; n times
+    printf("Hello World");      // 1 unit each time, executed n times
+}                               // statement count: f(n) = n</code></pre>
+
+    <p>For a <code>for</code> loop that runs <code>n</code> times, the pieces execute a different number of times:</p>
+    <div class="tw"><table><thead><tr><th>Part of <code>for (i = 1; i &lt;= n; i++)</code></th><th>Executes</th><th>Why</th></tr></thead><tbody>
+      <tr><td><code>i = 1</code> (init)</td><td>1 time</td><td>only at the start</td></tr>
+      <tr><td><code>i &lt;= n</code> (test)</td><td><strong>n + 1</strong> times</td><td>n true tests + 1 final false test that stops the loop</td></tr>
+      <tr><td><code>i++</code> (update)</td><td>n times</td><td>after each body execution</td></tr>
+      <tr><td>body</td><td>n times</td><td></td></tr>
+    </tbody></table></div>
+    <div class="callout warn" data-t="Common mistake"><p>Forgetting the <strong>+1</strong> on the loop test. The test runs one extra time: that last <em>false</em> test is what exits the loop.</p></div>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>TD B1 · Primitive-operation model</h3>
+      <p>Derive an exact T(n), counting initialisation, loop tests, increments, arithmetic and assignments explicitly. Then give the tight asymptotic bound. Present the count as a table.</p>
+<pre><code>int total(int n) {
+    int sum = 0;
+    for (int i = 1; i &lt;= n; i++) {
+        sum = sum + i;
+    }
+    return sum;
+}</code></pre>
+      <div class="solution">
+        <div class="tw"><table><thead><tr><th>Operation</th><th>Cost per execution</th><th>Executions</th><th>Total</th></tr></thead><tbody>
+          <tr><td><code>sum = 0</code></td><td>1 (assignment)</td><td>1</td><td>1</td></tr>
+          <tr><td><code>i = 1</code></td><td>1 (assignment)</td><td>1</td><td>1</td></tr>
+          <tr><td><code>i &lt;= n</code></td><td>1 (comparison)</td><td>n + 1</td><td>n + 1</td></tr>
+          <tr><td><code>i++</code></td><td>1</td><td>n</td><td>n</td></tr>
+          <tr><td><code>sum = sum + i</code></td><td>2 (<code>+</code> and <code>=</code>)</td><td>n</td><td>2n</td></tr>
+          <tr><td><code>return sum</code></td><td>1</td><td>1</td><td>1</td></tr>
+          <tr><td colspan="3"><strong>T(n)</strong></td><td><strong>4n + 4</strong></td></tr>
+        </tbody></table></div>
+        <p><strong>Tight bound:</strong> the dominant term is 4n. Drop the constant factor and you get <strong>T(n) ∈ Θ(n)</strong>.</p>
+        <p><strong>In plain words:</strong> double <code>n</code> and the work roughly doubles. That's <em>linear</em> time.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD B2 · Statement-count vs primitive-operation model</h3>
+      <p>Analyse <code>sum = sum + i * i;</code> inside a loop under both models.</p>
+      <ol type="a"><li>How many operations per iteration under the statement-count model?</li><li>How many primitive operations per iteration? State your convention.</li><li>If the line executes exactly n times, derive its contribution to T(n) under both models.</li><li>Why do both models give the same asymptotic class?</li></ol>
+      <div class="solution">
+        <ol type="a">
+          <li><strong>1</strong>: it is one statement.</li>
+          <li><strong>3</strong>: one multiplication <code>i * i</code>, one addition <code>sum + …</code>, one assignment <code>=</code>. Convention: every operator in the source counts as 1. Reading variables is free.</li>
+          <li>Statement-count: <strong>n</strong>. Primitive-operation: <strong>3n</strong>.</li>
+          <li>The two counts differ only by a <strong>constant factor</strong> (×3). Asymptotic notation ignores constant factors, so both are <strong>Θ(n)</strong>. The model changes the exact number, never the growth class.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD B3 · Two consecutive loops</h3>
+      <p>Derive T(n) under the statement-count model, then state Θ(·). Why are the costs of the two loops added rather than multiplied?</p>
+<pre><code>int f(int n) {
+    int x = 0;
+    for (int i = 0; i &lt; n; i++)
+        x++;
+    for (int j = 0; j &lt; n; j++)
+        x += 2;
+    return x;
+}</code></pre>
+      <div class="solution">
+<pre><code>int f(int n) {
+    int x = 0;                    // 1 statement, runs once                -&gt; 1
+    for (int i = 0; i &lt; n; i++)   // loop 1 runs its body n times
+        x++;                      // 1 statement x n                       -&gt; n
+    for (int j = 0; j &lt; n; j++)   // loop 2 starts AFTER loop 1 finishes
+        x += 2;                   // 1 statement x n                       -&gt; n
+    return x;                     // 1 statement, runs once                -&gt; 1
+}</code></pre>
+        <p><strong>T(n) = 1 + n + n + 1 = 2n + 2 ∈ Θ(n).</strong> (If you also count each loop header as a statement executed n + 1 times, you get 4n + 4. Still Θ(n).)</p>
+        <p><strong>Why add?</strong> The loops are <em>consecutive</em>: the second one starts only when the first has completely finished, so the costs pile up one after the other (n + n). You <em>multiply</em> only when one loop is <em>inside</em> another, because then the inner loop runs once for <em>each</em> outer iteration.</p>
+        <div class="callout" data-t="Analogy"><p>Washing the dishes and then drying them: 10 min + 10 min. Checking every page of 10 books where each book has 10 pages: 10 × 10.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD B4 · Closed-form replacement</h3>
+      <p>Compare the two functions. For each, derive an operation count under one clearly stated model and give the complexity. Explain the algorithmic reason for the difference.</p>
+<pre><code>int sum1(int n) {
+    int s = 0;
+    for (int i = 1; i &lt;= n; i++)
+        s += i;
+    return s;
+}
+
+int sum2(int n) {
+    return n * (n + 1) / 2;
+}</code></pre>
+      <div class="solution">
+        <p><strong>Model:</strong> primitive operations, every operator counts 1 (<code>+=</code> counts 1, <code>return</code> counts 1).</p>
+<pre><code>int sum1(int n) {
+    int s = 0;                      // 1 assignment                   -&gt; 1
+    for (int i = 1; i &lt;= n; i++)    // i = 1 -&gt; 1 | i &lt;= n -&gt; n+1 | i++ -&gt; n
+        s += i;                     // 1 compound assignment x n      -&gt; n
+    return s;                       // 1                              -&gt; 1
+}                                   // T1(n) = 1 + 1 + (n+1) + n + n + 1 = 3n + 4
+
+int sum2(int n) {
+    return n * (n + 1) / 2;         // +, *, / and return = 4 operations, ALWAYS
+}                                   // T2(n) = 4</code></pre>
+        <p><strong>sum1 ∈ Θ(n)</strong> (linear), <strong>sum2 ∈ Θ(1)</strong> (constant).</p>
+        <p><strong>Why the difference?</strong> <code>sum1</code> computes the sum by brute force, visiting all n numbers. <code>sum2</code> uses Gauss's closed-form formula 1 + 2 + … + n = n(n+1)/2, so the work no longer depends on n. Replacing a loop by mathematics is one of the most powerful optimisations.</p>
+        <div class="callout tip" data-t="Exam tip"><p>The slides do the same example with statement counting: f(n) = n + 4 → O(n) with c = 2, n₀ = 4, and the optimised version f(n) = 4 → O(1) with c = 5, n₀ = 1.</p></div>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Count how many times each line executes. Loop tests run n + 1 times. Consecutive blocks add; nested blocks multiply. Constant factors never change the final class.</p></div>
+  </article>
+
+  <article id="lvl-2" data-kicker="Level 2" data-title="The Growth League: Big O and Its Friends" data-meta="+200 XP · about 50 minutes · TD Part A" data-xp="200">
+    <p class="lead">Once you have f(n), you only care about how it <em>grows</em> when n gets huge. This level teaches you to rank functions, find the dominant term, and write the formal proofs the exam asks for.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the race of the runners"><p>Picture runners on a track that never ends. One walks at a steady speed (<strong>n</strong>). One gets faster every lap (<strong>n²</strong>). One <em>doubles</em> its speed every lap (<strong>2ⁿ</strong>). At the start the walker might even be ahead, but after enough laps the doubler is so far ahead that the others look like they're standing still. Big O only cares about who wins the <em>long</em> race, not who leads after the first lap.</p></div>
+
+    <div class="callout" data-t="Analogy: the elephant and the mouse"><p>In f(n) = 5n² + 6n + 12, the 5n² is an elephant and 6n + 12 are mice. Weigh them together on a scale and the mice don't matter. So f(n) ≈ 5n², and we write <strong>O(n²)</strong>.</p></div>
+
+    <p>The slides prove it with percentages for f(n) = 5n² + 6n + 12:</p>
+    <div class="tw"><table><thead><tr><th>n</th><th>5n²</th><th>6n</th><th>12</th></tr></thead><tbody>
+      <tr><td>1</td><td>21.74 %</td><td>26.09 %</td><td>52.17 %</td></tr>
+      <tr><td>10</td><td>87.41 %</td><td>10.49 %</td><td>2.10 %</td></tr>
+      <tr><td>100</td><td>98.79 %</td><td>1.19 %</td><td>0.02 %</td></tr>
+      <tr><td>1000</td><td>99.88 %</td><td>0.12 %</td><td>0.0002 %</td></tr>
+    </tbody></table></div>
+    <p>For tiny n the constant looks important, but as n grows the squared term eats almost 100 % of the time. Keeping only the dominant term gives the <strong>asymptotic complexity</strong>.</p>
+
+    <h3>Why is O(n²) bad? Feel the numbers</h3>
+    <p>Suppose a computer does 10⁹ (one billion) simple steps per second:</p>
+    <div class="tw"><table><thead><tr><th>n</th><th>log₂ n</th><th>n</th><th>n log₂ n</th><th>n²</th><th>n³</th><th>2ⁿ</th></tr></thead><tbody>
+      <tr><td>10</td><td>3</td><td>10</td><td>33</td><td>100</td><td>1 000</td><td>1 024</td></tr>
+      <tr><td>1 000</td><td>10</td><td>1 000</td><td>10⁴</td><td>10⁶ (1 ms)</td><td>10⁹ (1 s)</td><td>≈10³⁰¹ (never)</td></tr>
+      <tr><td>10⁶</td><td>20</td><td>10⁶ (1 ms)</td><td>2·10⁷ (0.02 s)</td><td>10¹² (17 min)</td><td>10¹⁸ (32 years)</td><td>never</td></tr>
+    </tbody></table></div>
+    <div class="callout warn" data-t="The punchline"><p>With a million users, an O(n log n) algorithm answers in 0.02 s and an O(n²) one takes 17 minutes. Same computer, same data. Only the algorithm changed. That's why this module exists.</p></div>
+
+    <h3>The growth ladder (memorise it)</h3>
+    <div class="formula">1 &lt; log n &lt; √n &lt; n &lt; n log n &lt; n² &lt; n³ &lt; 2ⁿ &lt; 3ⁿ &lt; n! &lt; nⁿ</div>
+    <div class="tw"><table><thead><tr><th>Class</th><th>Name</th><th>Typical code</th></tr></thead><tbody>
+      <tr><td>O(1)</td><td>constant</td><td><code>sum = a + b;</code> or a formula. O(100) is still O(1)!</td></tr>
+      <tr><td>O(log n)</td><td>logarithmic</td><td><code>i *= 2</code> or <code>i /= 2</code> loops: the problem is cut by a fraction each step</td></tr>
+      <tr><td>O(n)</td><td>linear</td><td>one loop over the input, traversing a list</td></tr>
+      <tr><td>O(n log n)</td><td>linearithmic</td><td>a linear loop around a log loop; merge sort</td></tr>
+      <tr><td>O(n²)</td><td>quadratic</td><td>two nested loops over n</td></tr>
+      <tr><td>O(nᵏ)</td><td>polynomial</td><td>k nested loops</td></tr>
+      <tr><td>O(2ⁿ)</td><td>exponential</td><td>trying every subset; very costly</td></tr>
+    </tbody></table></div>
+
+    <h3>2 · The Syntax: the formal definitions</h3>
+    <div class="callout" data-t="Analogy: the ceiling, the floor, and the sandwich"><p><strong>Big O</strong> is a <em>ceiling</em>: f never goes above c·g (eventually). <strong>Big Omega (Ω)</strong> is a <em>floor</em>: f never goes below c·g. <strong>Theta (Θ)</strong> is a <em>sandwich</em>: f is stuck between two copies of g, so it grows exactly like g.</p></div>
+    <div class="tw"><table><thead><tr><th>Notation</th><th>Definition (there exist constants…)</th><th>Meaning</th></tr></thead><tbody>
+      <tr><td>f(n) ∈ O(g(n))</td><td>c &gt; 0, n₀ &gt; 0 such that <strong>f(n) ≤ c·g(n)</strong> for all n ≥ n₀</td><td>upper bound: grows no faster than g (worst case)</td></tr>
+      <tr><td>f(n) ∈ Ω(g(n))</td><td>c &gt; 0, n₀ &gt; 0 such that <strong>f(n) ≥ c·g(n)</strong> for all n ≥ n₀</td><td>lower bound: grows at least as fast as g</td></tr>
+      <tr><td>f(n) ∈ Θ(g(n))</td><td>c₁, c₂ &gt; 0, n₀ such that <strong>c₁·g(n) ≤ f(n) ≤ c₂·g(n)</strong> for all n ≥ n₀</td><td>tight bound: O and Ω at the same time</td></tr>
+      <tr><td>f(n) ∈ o(g(n))</td><td>lim f(n)/g(n) = 0</td><td>strictly slower than g (like "&lt;")</td></tr>
+      <tr><td>f(n) ∈ ω(g(n))</td><td>lim f(n)/g(n) = ∞</td><td>strictly faster than g (like "&gt;")</td></tr>
+    </tbody></table></div>
+    <p>Think of them as comparisons between growth rates: O ≈ ≤, Ω ≈ ≥, Θ ≈ =, o ≈ &lt;, ω ≈ &gt;.</p>
+
+    <p><strong>Recipe for an O proof</strong> (the slides' Example 2, f(n) = 4n + 3):</p>
+    <ol><li>Write what you need: 4n + 3 ≤ c·n.</li><li>Pick c a bit bigger than the leading coefficient: c = 5.</li><li>Solve: 4n + 3 ≤ 5n ⇔ 3 ≤ n. So n₀ = 3.</li><li>Conclude: f(n) ≤ 5n for all n ≥ 3, hence f(n) ∈ O(n). ∎</li></ol>
+    <div class="callout tip" data-t="The bulldozer trick (works every time)"><p>For n ≥ 1, every lower power is ≤ the top power: n ≤ n², 1 ≤ n². So replace every term by the top power: 6n² + 3n + 2 ≤ 6n² + 3n² + 2n² = 11n². Instant c = 11, n₀ = 1.</p></div>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>TD A1 · Rank the growth rates</h3>
+      <p>Arrange from slowest to fastest growth, grouping functions with the same asymptotic growth:</p>
+      <p><code>1, log₂ n, log₁₀ n, √n, n, n log₂ n, n², n³, 2ⁿ, 3ⁿ, n!, nⁿ</code></p>
+      <p>Then: why can the base of the logarithm usually be ignored?</p>
+      <div class="solution">
+        <div class="formula">1 &lt; { log₂ n , log₁₀ n } &lt; √n &lt; n &lt; n log₂ n &lt; n² &lt; n³ &lt; 2ⁿ &lt; 3ⁿ &lt; n! &lt; nⁿ</div>
+        <p><strong>Grouped together:</strong> log₂ n and log₁₀ n (same class Θ(log n)).</p>
+        <p><strong>Why ignore the base?</strong> By the change-of-base formula, log₂ n = log₁₀ n / log₁₀ 2 ≈ 3.32 · log₁₀ n. Two logs with different bases differ only by a <strong>constant factor</strong>, and asymptotic notation ignores constants.</p>
+        <p><strong>Careful:</strong> 2ⁿ and 3ⁿ are <em>not</em> in the same class. 3ⁿ / 2ⁿ = (1.5)ⁿ → ∞, which is not a constant. The base matters for exponentials, but not for logarithms.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD A2 · Dominant-term reasoning</h3>
+      <p>Identify the dominant term and give the tight bound:</p>
+      <ol type="a"><li>T(n) = 7n + 40</li><li>T(n) = 5n² + 6n + 12</li><li>T(n) = 4n³ + 10n² + 5n + 1</li><li>T(n) = n log₂ n + 100n + 500</li><li>T(n) = 3·2ⁿ + n⁵ + 1000</li></ol>
+      <p>For (b), compute the percentage contribution of 5n², 6n and 12 at n = 10 and n = 100. What do the numbers show?</p>
+      <div class="solution">
+        <ol type="a"><li>7n → <strong>Θ(n)</strong></li><li>5n² → <strong>Θ(n²)</strong></li><li>4n³ → <strong>Θ(n³)</strong></li><li>n log₂ n → <strong>Θ(n log n)</strong> (log n grows without limit, so n log n eventually beats 100n)</li><li>3·2ⁿ → <strong>Θ(2ⁿ)</strong> (any exponential beats any polynomial, even n⁵)</li></ol>
+        <p><strong>Percentages for (b):</strong></p>
+        <div class="tw"><table><thead><tr><th>n</th><th>5n²</th><th>6n</th><th>12</th><th>Total</th></tr></thead><tbody>
+          <tr><td>10</td><td>500 → 87.41 %</td><td>60 → 10.49 %</td><td>12 → 2.10 %</td><td>572</td></tr>
+          <tr><td>100</td><td>50 000 → 98.79 %</td><td>600 → 1.19 %</td><td>12 → 0.02 %</td><td>50 612</td></tr>
+        </tbody></table></div>
+        <p><strong>What it shows:</strong> as n grows, the share of the highest-order term tends to 100 % and the lower terms become negligible. That's exactly why asymptotic analysis keeps only the dominant term and drops its coefficient.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD A3 · Formal O, Ω and Θ</h3>
+      <ol type="a"><li>Prove 4n + 3 ∈ O(n) by giving one valid pair (c, n₀).</li><li>Prove 4n² + 100n + 500 ∈ Ω(n²).</li><li>Prove 6n² + 3n + 2 ∈ Θ(n²) by constructing both bounds.</li><li>Explain why n³ − 100n² ∉ O(n²).</li></ol>
+      <div class="solution">
+        <p><strong>(a)</strong> Take c = 5: 4n + 3 ≤ 5n ⇔ n ≥ 3. So with <strong>c = 5, n₀ = 3</strong>, 4n + 3 ≤ 5n for all n ≥ n₀. ∎ (Also valid: c = 7, n₀ = 1, because 4n + 3 ≤ 4n + 3n = 7n for n ≥ 1.)</p>
+        <p><strong>(b)</strong> For n ≥ 1, 100n + 500 &gt; 0, so 4n² + 100n + 500 ≥ 4n². With <strong>c = 4, n₀ = 1</strong>, f(n) ≥ c·n² for all n ≥ n₀. ∎</p>
+        <p><strong>(c)</strong> Lower bound: 6n² + 3n + 2 ≥ 6n² for n ≥ 1 → c₁ = 6. Upper bound: for n ≥ 1, 3n ≤ 3n² and 2 ≤ 2n², so 6n² + 3n + 2 ≤ 11n² → c₂ = 11. Hence <strong>6n² ≤ f(n) ≤ 11n² for all n ≥ 1</strong> (c₁ = 6, c₂ = 11, n₀ = 1), so f(n) ∈ Θ(n²). ∎</p>
+        <p><strong>(d)</strong> Proof by contradiction. Suppose constants c, n₀ exist with n³ − 100n² ≤ c·n² for all n ≥ n₀. Divide by n² (n &gt; 0): n − 100 ≤ c, i.e. n ≤ c + 100. That must hold for <em>every</em> n ≥ n₀, but it fails for n = max(n₀, c + 101). Contradiction, so n³ − 100n² ∉ O(n²). Intuitively, the n³ term eventually wins no matter how big c is.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD A4 · True or false?</h3>
+      <ol type="a"><li>n ∈ O(n²)</li><li>n² ∈ O(n)</li><li>5n² + 2n ∈ Θ(n²)</li><li>log₂ n ∈ Θ(log₁₀ n)</li><li>n³ ∈ Ω(n²)</li><li>n² ∈ o(n³)</li><li>n³ ∈ ω(n²)</li></ol>
+      <div class="solution">
+        <ol type="a">
+          <li><strong>True.</strong> n ≤ 1·n² for n ≥ 1. O is only a ceiling, and a loose ceiling is still a ceiling.</li>
+          <li><strong>False.</strong> n² ≤ c·n would mean n ≤ c for all large n. Impossible.</li>
+          <li><strong>True.</strong> 5n² ≤ 5n² + 2n ≤ 7n² for n ≥ 1.</li>
+          <li><strong>True.</strong> log₂ n = (1/log₁₀ 2)·log₁₀ n ≈ 3.32·log₁₀ n: a constant multiple.</li>
+          <li><strong>True.</strong> n³ ≥ 1·n² for n ≥ 1.</li>
+          <li><strong>True.</strong> lim n²/n³ = lim 1/n = 0.</li>
+          <li><strong>True.</strong> lim n³/n² = lim n = ∞.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture exercise · Dominant term and Big O</h3>
+      <p>Classify each expression in Big O:</p>
+      <ol type="a"><li>48n⁴ + 16n² + log₈ n + 2n</li><li>n²/2 + 3000n</li><li>0.0001n² + 10000n − (6n⁵ + 3)/n⁴</li></ol>
+      <div class="solution">
+        <ol type="a"><li><strong>O(n⁴)</strong>: 48n⁴ dominates.</li><li><strong>O(n²)</strong>: even divided by 2 and against a big 3000n, n² wins for large n (here from n &gt; 6000).</li><li>Simplify first: (6n⁵ + 3)/n⁴ = 6n + 3/n⁴, which is just O(n). So the expression is 0.0001n² + 9994n − 3/n⁴ → <strong>O(n²)</strong>. Tiny coefficients don't matter.</li></ol>
+        <div class="callout warn" data-t="Trap"><p>Always simplify fractions before choosing the dominant term. n⁵/n⁴ is only n.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture exercise · Which algorithm is better?</h3>
+      <p>Algorithm A does a task in time n³ + 300n. Algorithm B does the same task in 30n² + 1000. (i) Give the Big O of each. (ii) Which is more efficient?</p>
+      <div class="solution">
+        <p><strong>(i)</strong> A ∈ O(n³), B ∈ O(n²).</p>
+        <p><strong>(ii)</strong> <strong>B</strong> is more efficient for large inputs, since n² grows slower than n³. Bonus insight: at n = 10 both cost exactly 4000 steps (1000 + 3000 = 3000 + 1000). For n &lt; 10, A is slightly faster; for n &gt; 10, B wins, and the gap keeps growing. Asymptotic analysis answers the "large n" question.</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Keep the dominant term and drop its coefficient. For proofs, write the inequality, choose c, solve for n₀, conclude. O = ceiling, Ω = floor, Θ = sandwich. The log base doesn't matter; the exponential base does.</p></div>
+  </article>
+
+  <article id="lvl-3" data-kicker="Level 3" data-title="Loop Hunter: Reading Complexity Straight From Code" data-meta="+250 XP · about 60 minutes · TD Parts C, D3, E" data-xp="250">
+    <p class="lead">This is the skill the exam rewards most: look at a loop, know how many times it runs. Learn six patterns and you can read almost any code.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: climbing stairs"><p><strong><code>i++</code></strong> is climbing a staircase one step at a time: 100 stairs = 100 steps (linear).<br><strong><code>i += 3</code></strong> is taking three stairs at once: about 33 steps. Still proportional to the stairs, so still linear.<br><strong><code>i *= 2</code></strong> is a magic elevator that <em>doubles</em> your floor each ride: 1 → 2 → 4 → 8 → … → 1024 in only 10 rides. That's <strong>logarithmic</strong>: log₂ n rides.</p></div>
+    <div class="callout" data-t="Analogy: the phone book"><p>Looking for "Martin" in a 1000-page phone book: open it in the middle, throw away the wrong half, repeat. 1000 → 500 → 250 → … → 1 takes about 10 halvings. Every time you <strong>cut the problem by a fraction</strong>, you get log n.</p></div>
+    <div class="callout" data-t="Analogy: the clock"><p>Nested loops are like a clock. For every single tick of the hour hand (outer loop), the minute hand goes all the way round (inner loop). 12 hours × 60 minutes = 720 ticks. That's why nested loops <strong>multiply</strong>.</p></div>
+
+    <h3>2 · The Syntax: the six loop patterns</h3>
+    <div class="tw"><table><thead><tr><th>#</th><th>Loop</th><th>Iterations</th><th>Class</th></tr></thead><tbody>
+      <tr><td>1</td><td><code>for (i = 0; i &lt; n; i++)</code></td><td>n</td><td>Θ(n)</td></tr>
+      <tr><td>2</td><td><code>for (i = 0; i &lt; n; i += k)</code></td><td>⌈n/k⌉</td><td>Θ(n)</td></tr>
+      <tr><td>3</td><td><code>for (i = 1; i &lt;= n; i *= k)</code></td><td>⌊log_k n⌋ + 1</td><td>Θ(log n)</td></tr>
+      <tr><td>4</td><td><code>for (i = n; i &gt;= 1; i /= k)</code></td><td>⌊log_k n⌋ + 1</td><td>Θ(log n)</td></tr>
+      <tr><td>5</td><td>nested, independent bounds (n and n)</td><td>n × n</td><td>Θ(n²)</td></tr>
+      <tr><td>6</td><td>nested, inner bound depends on i (<code>j &lt;= i</code>)</td><td>Σ i = n(n+1)/2</td><td>Θ(n²) → see Level 4</td></tr>
+    </tbody></table></div>
+
+    <p><strong>Where does log come from?</strong> In <code>for (i = 1; i &lt;= n; i *= 2)</code>, after k iterations i = 2ᵏ. The loop stops when 2ᵏ &gt; n, i.e. after k = ⌊log₂ n⌋ + 1 iterations.</p>
+<pre><code>iteration:  1    2    3    4    5   ...   k
+value of i: 2^0  2^1  2^2  2^3  2^4 ...   2^(k-1) &lt;= n   -&gt;  k - 1 = log2(n)  -&gt;  k = log2(n) + 1</code></pre>
+
+    <p><strong>The four combination rules</strong></p>
+    <ul>
+      <li><strong>Consecutive blocks:</strong> add, then keep the biggest. n + n² + log n → Θ(n²).</li>
+      <li><strong>Nested loops:</strong> multiply the counts if they are independent; use a summation if the inner bound depends on the outer variable.</li>
+      <li><strong>if / else:</strong> T = T(condition) + <strong>max</strong>(T(if), T(else)). Only one branch runs per call.</li>
+      <li><strong>Always look at the slowest part.</strong></li>
+    </ul>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>TD C1 · Exact iteration counts</h3>
+      <p>Give the exact number of body executions, then the tight complexity. For (d) and (f), use a log with the correct base before simplifying.</p>
+      <ol type="a"><li><code>for (i = 0; i &lt; n; i++)</code></li><li><code>for (i = 0; i &lt; n; i += 3)</code></li><li><code>for (i = n/2; i &lt;= n; i++)</code></li><li><code>for (i = 1; i &lt;= n; i *= 2)</code></li><li><code>for (i = n; i &gt;= 1; i /= 2)</code></li><li><code>for (i = 1; i &lt;= n; i *= 3)</code></li></ol>
+      <div class="solution">
+        <div class="tw"><table><thead><tr><th></th><th>Values of i</th><th>Exact count</th><th>Class</th></tr></thead><tbody>
+          <tr><td>(a)</td><td>0, 1, …, n−1</td><td>n</td><td>Θ(n)</td></tr>
+          <tr><td>(b)</td><td>0, 3, 6, … (&lt; n)</td><td>⌈n/3⌉</td><td>Θ(n)</td></tr>
+          <tr><td>(c)</td><td>⌊n/2⌋, …, n</td><td>n − ⌊n/2⌋ + 1 = ⌈n/2⌉ + 1</td><td>Θ(n)</td></tr>
+          <tr><td>(d)</td><td>1, 2, 4, …, 2ᵏ ≤ n</td><td>⌊log₂ n⌋ + 1</td><td>Θ(log n)</td></tr>
+          <tr><td>(e)</td><td>n, n/2, n/4, …, 1</td><td>⌊log₂ n⌋ + 1</td><td>Θ(log n)</td></tr>
+          <tr><td>(f)</td><td>1, 3, 9, …, 3ᵏ ≤ n</td><td>⌊log₃ n⌋ + 1</td><td>Θ(log n)</td></tr>
+        </tbody></table></div>
+        <p><strong>Check (d) with n = 16:</strong> i = 1, 2, 4, 8, 16 → 5 iterations = log₂ 16 + 1 ✓.</p>
+        <p><strong>(c) is a trap:</strong> starting at n/2 halves the work, but n/2 is still proportional to n, so it's linear, not logarithmic.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD C2 · Constant increment vs multiplicative growth</h3>
+<pre><code>i = 0;
+while (i &lt; n) {
+    i += 3;
+}
+
+i = 1;
+while (i &lt; n) {
+    i *= 3;
+}</code></pre>
+      <p>Derive the iteration count of each loop and its Θ bound.</p>
+      <div class="solution">
+<pre><code>i = 0;                // start at 0
+while (i &lt; n) {       // runs while i takes the values 0, 3, 6, ..., the last one &lt; n
+    i += 3;           // jump 3 stairs: after k iterations, i = 3k
+}                     // stops when 3k &gt;= n  -&gt;  k = ceil(n/3) iterations  -&gt;  Theta(n)
+
+i = 1;                // start at 1
+while (i &lt; n) {       // runs while i takes the values 1, 3, 9, 27, ..., each one &lt; n
+    i *= 3;           // magic elevator x3: after k iterations, i = 3^k
+}                     // stops when 3^k &gt;= n  -&gt;  k = ceil(log3 n) iterations  -&gt;  Theta(log n)</code></pre>
+        <p><strong>Lesson:</strong> adding a constant gives <em>linear</em> time. Multiplying by a constant gives <em>logarithmic</em> time. Check with n = 10: the first loop gives i = 0, 3, 6, 9 → 4 = ⌈10/3⌉ ✓. The second gives i = 1, 3, 9 → 3 = ⌈log₃ 10⌉ ✓.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD C3 · Independent nested loops</h3>
+<pre><code>for (int i = 1; i &lt;= n; i++) {
+    for (int j = 1; j &lt;= n; j++) {
+        count++;
+    }
+}</code></pre>
+      <p>Write the count as a product, then as a summation, then as a Θ class.</p>
+      <div class="solution">
+<pre><code>for (int i = 1; i &lt;= n; i++) {       // outer: n iterations
+    for (int j = 1; j &lt;= n; j++) {   // inner: n iterations FOR EACH i (bound doesn't depend on i)
+        count++;                     // runs n x n times
+    }
+}</code></pre>
+        <p><strong>Product:</strong> n × n = n². <strong>Summation:</strong> Σ<sub>i=1</sub><sup>n</sup> Σ<sub>j=1</sub><sup>n</sup> 1 = Σ<sub>i=1</sub><sup>n</sup> n = n·n = n². <strong>Class:</strong> Θ(n²).</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD D3 · Consecutive blocks</h3>
+<pre><code>for (int i = 0; i &lt; n; i++)
+    x++;
+
+for (int i = 0; i &lt; n; i++)
+    for (int j = 0; j &lt; n; j++)
+        y++;
+
+for (int k = 1; k &lt;= n; k *= 2)
+    z++;</code></pre>
+      <p>Write the unsimplified total first, then identify the dominant block.</p>
+      <div class="solution">
+        <p><strong>Unsimplified:</strong> T(n) = n + n² + (⌊log₂ n⌋ + 1).</p>
+        <p>Block 1 is Θ(n), block 2 is Θ(n²), block 3 is Θ(log n). The blocks are consecutive, so their costs add, and the sum is dominated by the largest term. <strong>T(n) ∈ Θ(n²).</strong> For large n, n² ≥ n and n² ≥ log n, so n² ≤ T(n) ≤ 3n² for n ≥ 1.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD E1 · The if-then-else rule</h3>
+<pre><code>int g(int n) {
+    if (n &lt;= 10) {
+        return n * n;
+    } else {
+        int s = 0;
+        for (int i = 0; i &lt; n; i++)
+            s += i;
+        return s;
+    }
+}</code></pre>
+      <p>Find the worst-case complexity with T = T(condition) + max(T(if), T(else)). Why aren't the branch costs added?</p>
+      <div class="solution">
+<pre><code>int g(int n) {
+    if (n &lt;= 10) {                    // condition: O(1)
+        return n * n;                 // if-branch: one multiplication -&gt; O(1)
+    } else {
+        int s = 0;                    // O(1)
+        for (int i = 0; i &lt; n; i++)   // runs n times
+            s += i;                   // O(1) each -&gt; O(n) total
+        return s;                     // O(1)
+    }                                 // else-branch: O(n)
+}</code></pre>
+        <p>T(n) = O(1) + max(O(1), O(n)) = <strong>O(n)</strong> in the worst case (any n &gt; 10 takes the else branch, so it's actually Θ(n) for large n).</p>
+        <p><strong>Why max, not +?</strong> During one call, <em>only one</em> branch executes. You either enter the <code>if</code> or the <code>else</code>, never both. The worst case is the more expensive branch.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture trap · The <code>break</code></h3>
+<pre><code>void fun(int n) {
+    if (n &lt;= 1) return;
+    int i, j;
+    for (i = 1; i &lt;= n; i++) {
+        for (j = 1; j &lt;= n; j++) {
+            printf("Hello\n");
+            break;
+        }
+    }
+}</code></pre>
+      <div class="solution">
+<pre><code>for (i = 1; i &lt;= n; i++) {          // outer loop: n times
+    for (j = 1; j &lt;= n; j++) {      // inner loop STARTS...
+        printf("Hello\n");          // ...prints once...
+        break;                      // ...and is killed immediately. Inner = 1 iteration, not n
+    }
+}                                   // equivalent to a single loop printing n times</code></pre>
+        <p><strong>O(n)</strong>, not O(n²). Two nested <code>for</code>s don't automatically mean n². <em>Read what the body does.</em></p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture trap · Missing braces</h3>
+<pre><code>for (i = 0; i &lt; n; i++)
+    i++;
+    printf("a");</code></pre>
+      <p>What is the complexity, and how many times is "a" printed?</p>
+      <div class="solution">
+        <p>Without braces, the loop body is <strong>only</strong> the next statement, <code>i++;</code>. The indentation of <code>printf</code> lies: it's <em>outside</em> the loop.</p>
+<pre><code>for (i = 0; i &lt; n; i++)   // header also does i++
+    i++;                  // body does i++ again -&gt; i grows by 2 per iteration -&gt; about n/2 iterations
+printf("a");              // runs ONCE, after the loop</code></pre>
+        <p>The loop is <strong>O(n)</strong> (⌈n/2⌉ iterations) and "a" is printed <strong>once</strong>.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture exercise · Linear outer, log inner</h3>
+<pre><code>for (i = 0; i &lt; n; i++) {
+    j = n;
+    while (j &gt; 1) {
+        printf("a");
+        j /= 2;
+    }
+}</code></pre>
+      <div class="solution">
+<pre><code>for (i = 0; i &lt; n; i++) {   // outer: n times
+    j = n;                  // reset j to n at every outer iteration
+    while (j &gt; 1) {         // j = n, n/2, n/4, ..., 2  -&gt; floor(log2 n) iterations
+        printf("a");        // O(1)
+        j /= 2;             // halve: logarithmic pattern
+    }
+}</code></pre>
+        <p>n × ⌊log₂ n⌋ → <strong>Θ(n log n)</strong>.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture homework · Log of a log?</h3>
+<pre><code>void fun(int n) {
+    int i = 1;
+    while (i &lt; n) {
+        int j = n;
+        while (j &gt; 0)
+            j = j / 2;
+        i = 2 * i;
+    }
+}</code></pre>
+      <div class="solution">
+<pre><code>void fun(int n) {
+    int i = 1;
+    while (i &lt; n) {          // i = 1, 2, 4, ... &lt; n   -&gt; ceil(log2 n) iterations
+        int j = n;
+        while (j &gt; 0)        // no braces: the inner body is ONLY the next line
+            j = j / 2;       // j = n, n/2, ..., 1, then 0 -&gt; floor(log2 n) + 1 iterations
+        i = 2 * i;           // belongs to the OUTER loop (despite the indentation)
+    }
+}</code></pre>
+        <p>Total ≈ log₂ n × log₂ n → <strong>Θ(log² n)</strong>, i.e. Θ((log n)²). That's faster than n but slower than log n.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture exercises · Run-time equations</h3>
+      <p>Determine the run-time equation and complexity of each.</p>
+<pre><code>// (1)
+for (i = 0; i &lt; n; i++)
+    for (j = 0; j &lt; n; j++)
+        sum = sum + i + j;
+
+// (2)
+for (i = 1; i &lt;= n/3; i++)
+    for (j = 1; j &lt;= n; j += 4)
+        printf("Hello\n");
+
+// (3)
+int k = 0;
+for (int i = 1; i &lt; n; i *= 2)
+    for (int j = 1; j &lt; n; j++)
+        k++;</code></pre>
+      <div class="solution">
+        <p><strong>(1)</strong> The body runs n·n times. Statement count: T(n) = n². With primitive operations (+, +, =): 3n². → <strong>Θ(n²)</strong>.</p>
+        <p><strong>(2)</strong> Outer: ⌊n/3⌋ times. Inner: j = 1, 5, 9, …: after k steps j = 1 + (k−1)·4 ≤ n, so k = ⌊(n−1)/4⌋ + 1 ≈ n/4. T(n) ≈ (n/3)(n/4) = n²/12 → <strong>Θ(n²)</strong>. Dividing the step or the bound by a constant never changes the class.</p>
+        <p><strong>(3)</strong> Outer: i = 1, 2, 4, … &lt; n → ⌈log₂ n⌉ times. Inner: j = 1 … n−1 → n − 1 times. T(n) = (n − 1)·⌈log₂ n⌉ → <strong>Θ(n log n)</strong>.</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p><code>+= k</code> → n/k (linear). <code>*= k</code> or <code>/= k</code> → log n. Consecutive → add, then keep the biggest. Nested → multiply. if/else → max. And always check for <code>break</code>, missing braces and misleading indentation.</p></div>
+  </article>
+
+  <article id="lvl-4" data-kicker="Level 4" data-title="Summation Sorcery: Dependent and Tricky Loops" data-meta="+300 XP · about 75 minutes · TD Parts C4–C5, D, F, G" data-xp="300">
+    <p class="lead">When the inner loop's bound depends on the outer variable, you can't just multiply. You add up the work of each outer iteration with a Σ. Five formulas are enough for every exercise in the TD.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the birthday candles"><p>A child gets 1 candle on their 1st birthday, 2 on their 2nd, 3 on their 3rd… How many candles in total by birthday n? 1 + 2 + … + n. That's exactly a loop where the inner part runs <code>i</code> times. Young Gauss noticed you can pair them up: (1 + n) + (2 + n−1) + … gives n/2 pairs worth n + 1 each, so the total is <strong>n(n+1)/2</strong>. That's about n²/2, so Θ(n²).</p></div>
+    <div class="callout" data-t="Analogy: the chessboard and the rice"><p>Put 1 grain on the first square, 2 on the next, 4, 8, 16… The <em>last</em> square alone holds more than all the previous squares together (1 + 2 + 4 + 8 = 15 &lt; 16). A doubling sum is basically just <strong>twice its last term</strong>. That's why 1 + 2 + 4 + … + n = Θ(n), not n log n.</p></div>
+
+    <h3>2 · The Syntax: your five spell formulas</h3>
+    <div class="tw"><table><thead><tr><th>Sum</th><th>Closed form</th><th>Class</th></tr></thead><tbody>
+      <tr><td>Σ<sub>i=1</sub><sup>n</sup> 1</td><td>n</td><td>Θ(n)</td></tr>
+      <tr><td>Σ<sub>i=1</sub><sup>n</sup> i</td><td>n(n+1)/2</td><td>Θ(n²)</td></tr>
+      <tr><td>Σ<sub>i=1</sub><sup>n</sup> i²</td><td>n(n+1)(2n+1)/6</td><td>Θ(n³)</td></tr>
+      <tr><td>Σ<sub>k=0</sub><sup>m</sup> 2ᵏ (geometric)</td><td>2<sup>m+1</sup> − 1</td><td>Θ(2ᵐ), i.e. Θ(last term)</td></tr>
+      <tr><td>Σ<sub>i=1</sub><sup>n</sup> log i</td><td>log(n!)</td><td>Θ(n log n)</td></tr>
+    </tbody></table></div>
+    <p><strong>Method (the slides' "Summation Analysis"):</strong></p>
+    <ol><li>Write the loops as nested sums, one Σ per loop, with the <em>same bounds</em> as the code.</li><li>Evaluate the <strong>innermost</strong> sum first.</li><li>Replace it, then evaluate the next one with a formula.</li><li>Keep the dominant term for Θ.</li></ol>
+<pre><code>for (int i = 1; i &lt;= n; i++)      // -&gt;  sum over i = 1..n
+    for (int j = 1; j &lt;= i; j++)  // -&gt;  sum over j = 1..i   (bound depends on i!)
+        count++;                  // -&gt;  1
+// T(n) = sum_{i=1..n} sum_{j=1..i} 1 = sum_{i=1..n} i = n(n+1)/2</code></pre>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>TD C4 · Dependent nested loop</h3>
+<pre><code>for (int i = 1; i &lt;= n; i++) {
+    for (int j = 1; j &lt;= i; j++) {
+        count++;
+    }
+}</code></pre>
+      <ol type="a"><li>For a fixed i, how many times does the inner body run?</li><li>Express the total as Σ<sub>i=1</sub><sup>n</sup> i.</li><li>Use a closed form for the exact count and the tight bound.</li></ol>
+      <div class="solution">
+        <ol type="a"><li>j goes from 1 to i, so <strong>i times</strong>.</li><li>Outer i = 1 → 1, i = 2 → 2, …, i = n → n. Total = 1 + 2 + … + n = Σ<sub>i=1</sub><sup>n</sup> i.</li><li>Σ i = <strong>n(n+1)/2 = n²/2 + n/2 ∈ Θ(n²)</strong>.</li></ol>
+        <p>Check with n = 4: 1 + 2 + 3 + 4 = 10 = 4·5/2 ✓. It does half the work of C3, but half of n² is still Θ(n²).</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD C5 · A mixed three-loop problem</h3>
+<pre><code>void fun(int n) {
+    int count = 0;
+    for (int i = n/2; i &lt;= n; i++)
+        for (int j = 1; j &lt;= n; j *= 2)
+            for (int k = 1; k &lt;= n; k++)
+                count++;
+}</code></pre>
+      <p>Find the complexity of each loop, combine them, and estimate how many times <code>count++</code> runs when n = 32.</p>
+      <div class="solution">
+<pre><code>void fun(int n) {
+    int count = 0;
+    for (int i = n/2; i &lt;= n; i++)        // n - n/2 + 1  ~ n/2 iterations    -&gt; Theta(n)
+        for (int j = 1; j &lt;= n; j *= 2)   // j = 1,2,4,...,&lt;=n: log2(n) + 1   -&gt; Theta(log n)
+            for (int k = 1; k &lt;= n; k++)  // n iterations                     -&gt; Theta(n)
+                count++;                  // none of the bounds depend on each other -&gt; multiply
+}</code></pre>
+        <p>Θ(n) × Θ(log n) × Θ(n) = <strong>Θ(n² log n)</strong>.</p>
+        <p><strong>n = 32:</strong> outer i = 16…32 → 17 iterations. Middle j = 1, 2, 4, 8, 16, 32 → 6. Inner → 32. Total = 17 × 6 × 32 = <strong>3264</strong>.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD D1 · Geometric-series loop</h3>
+<pre><code>for (int i = 1; i &lt;= n; i *= 2) {
+    for (int j = 0; j &lt; i; j++) {
+        count++;
+    }
+}</code></pre>
+      <ol type="a"><li>List the inner-loop counts for the first five outer iterations.</li><li>Write the total as 1 + 2 + 4 + ⋯ up to the largest power of two ≤ n.</li><li>Use the geometric-series formula to show the total is Θ(n), not Θ(n log n).</li></ol>
+      <div class="solution">
+        <ol type="a"><li>i = 1, 2, 4, 8, 16 → inner counts <strong>1, 2, 4, 8, 16</strong>.</li><li>Let m = ⌊log₂ n⌋ (so 2ᵐ is the largest power of two ≤ n). T(n) = 1 + 2 + 4 + ⋯ + 2ᵐ = Σ<sub>k=0</sub><sup>m</sup> 2ᵏ.</li><li>Geometric formula: T(n) = 2<sup>m+1</sup> − 1. Since 2ᵐ ≤ n &lt; 2<sup>m+1</sup>: <strong>upper</strong> T(n) = 2·2ᵐ − 1 ≤ 2n − 1, and <strong>lower</strong> T(n) = 2<sup>m+1</sup> − 1 ≥ n (because 2<sup>m+1</sup> &gt; n, so 2<sup>m+1</sup> ≥ n + 1). So n ≤ T(n) ≤ 2n − 1, hence <strong>T(n) ∈ Θ(n)</strong>.</li></ol>
+        <div class="callout warn" data-t="Why not n log n?"><p>The naive reasoning "outer log n × inner up to n = n log n" only gives an <em>upper bound</em>. It pretends every inner loop costs n, when most of them are tiny (1, 2, 4…). Only the last one costs about n, and all the others together cost less than it. Big O allows n log n; tight Θ is n.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD D2 · Logarithmic inner loop, linear outer loop</h3>
+<pre><code>for (int i = 1; i &lt;= n; i++) {
+    for (int j = 1; j &lt;= i; j *= 2) {
+        count++;
+    }
+}</code></pre>
+      <p>Write the total as Σ<sub>i=1</sub><sup>n</sup> (⌊log₂ i⌋ + 1) and find a tight bound with a bounding argument.</p>
+      <div class="solution">
+        <p>For a fixed i, j = 1, 2, 4, … ≤ i runs ⌊log₂ i⌋ + 1 times, so T(n) = Σ<sub>i=1</sub><sup>n</sup> (⌊log₂ i⌋ + 1).</p>
+        <p><strong>Upper bound:</strong> each term ≤ log₂ n + 1, and there are n terms → T(n) ≤ n(log₂ n + 1) ∈ O(n log n).</p>
+        <p><strong>Lower bound:</strong> keep only the last half of the terms, i ≥ n/2 (about n/2 terms). Each of them is ≥ log₂(n/2) = log₂ n − 1. So T(n) ≥ (n/2)(log₂ n − 1) ∈ Ω(n log n).</p>
+        <p>Both bounds match: <strong>T(n) ∈ Θ(n log n)</strong>.</p>
+        <div class="callout tip" data-t="The halving trick"><p>For a lower bound on a sum of growing terms, throw away the small first half. The remaining half has n/2 terms, each at least as big as the middle term.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD F1 · Quadratic outer bound</h3>
+<pre><code>for (int i = 1; i &lt;= n * n; i++) {
+    for (int j = 0; j &lt; i; j++) {
+        sum++;
+    }
+}</code></pre>
+      <p>Find the exact number of <code>sum++</code> executions as a summation and a closed form, then the bound.</p>
+      <div class="solution">
+<pre><code>for (int i = 1; i &lt;= n * n; i++) {   // i goes up to n^2 (not n!)
+    for (int j = 0; j &lt; i; j++) {    // j = 0..i-1 -&gt; i iterations
+        sum++;                       // so: 1 + 2 + ... + n^2
+    }
+}</code></pre>
+        <p>T(n) = Σ<sub>i=1</sub><sup>n²</sup> Σ<sub>j=0</sub><sup>i−1</sup> 1 = Σ<sub>i=1</sub><sup>n²</sup> i. Apply Σ<sub>i=1</sub><sup>N</sup> i = N(N+1)/2 with N = n²:</p>
+        <div class="formula">T(n) = n²(n² + 1)/2 = (n⁴ + n²)/2 ∈ Θ(n⁴)</div>
+        <p>The trap is the bound <code>n * n</code>: the outer loop is already Θ(n²) on its own.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD F2 · Triple summation</h3>
+<pre><code>for (int i = 1; i &lt;= n; i++) {
+    for (int j = 1; j &lt;= i; j++) {
+        for (int k = 1; k &lt;= j; k++) {
+            sum++;
+        }
+    }
+}</code></pre>
+      <ol type="a"><li>Write the triple summation.</li><li>Evaluate over k, then j, then i.</li><li>Give the closed form of T(n).</li><li>State the Θ bound.</li></ol>
+      <div class="solution">
+        <ol type="a">
+          <li>T(n) = Σ<sub>i=1</sub><sup>n</sup> Σ<sub>j=1</sub><sup>i</sup> Σ<sub>k=1</sub><sup>j</sup> 1</li>
+          <li><strong>Over k:</strong> Σ<sub>k=1</sub><sup>j</sup> 1 = j. <strong>Over j:</strong> Σ<sub>j=1</sub><sup>i</sup> j = i(i+1)/2. <strong>Over i:</strong> Σ<sub>i=1</sub><sup>n</sup> i(i+1)/2 = ½(Σ i² + Σ i) = ½[n(n+1)(2n+1)/6 + n(n+1)/2].</li>
+          <li>Factor n(n+1)/2: T(n) = (n(n+1)/2) · [(2n+1)/6 + 3/6] = (n(n+1)/2) · (2n+4)/6, so <strong>T(n) = n(n+1)(n+2)/6</strong>.</li>
+          <li>n(n+1)(n+2)/6 = n³/6 + n²/2 + n/3 → <strong>Θ(n³)</strong>.</li>
+        </ol>
+        <p><strong>Check:</strong> n = 1 → 1 ✓. n = 2 → (i=1: 1) + (i=2: 1 + 2) = 4, and 2·3·4/6 = 4 ✓.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD F3 · Three loops with non-uniform steps <span class="pts">hard</span></h3>
+<pre><code>int x = 0;
+for (int i = 1; i &lt; n; i += 5) {
+    for (int j = 0; j &lt; i; j++) {
+        for (int k = n; k &gt;= n / 2; k -= 3) {
+            x++;
+        }
+    }
+}</code></pre>
+      <p>Derive the number of iterations of each loop, and show how the dependent bound on j affects the total. Don't just replace every loop by n.</p>
+      <div class="solution">
+<pre><code>int x = 0;
+for (int i = 1; i &lt; n; i += 5) {             // i = 1, 6, 11, ..., 1+5m &lt; n
+                                             //   -&gt; M = ceil((n-1)/5) ~ n/5 values
+    for (int j = 0; j &lt; i; j++) {            // DEPENDS on i: exactly i iterations
+        for (int k = n; k &gt;= n / 2; k -= 3) {// k = n, n-3, ..., &gt;= n/2
+                                             //   -&gt; K = floor((n - n/2)/3) + 1 ~ n/6
+                                             //   independent of i and j: a constant per (i, j)
+            x++;
+        }
+    }
+}</code></pre>
+        <p><strong>Step 1, innermost k:</strong> K ≈ n/6 iterations, the same for every (i, j).</p>
+        <p><strong>Step 2, middle j:</strong> runs i times, so for a fixed i the work is i · K.</p>
+        <p><strong>Step 3, outer i</strong> takes the values i<sub>m</sub> = 1 + 5m for m = 0, 1, …, M − 1:</p>
+        <div class="formula">T(n) = K · Σ<sub>m=0</sub><sup>M−1</sup> (1 + 5m) = K · [M + 5M(M−1)/2]</div>
+        <p>With M ≈ n/5 and K ≈ n/6: the bracket ≈ (5/2)(n/5)² = n²/10, so T(n) ≈ (n/6)(n²/10) = <strong>n³/60 ∈ Θ(n³)</strong>.</p>
+        <p><strong>Effect of the dependent bound:</strong> the j-loop isn't "n" each time. It's i, which averages about n/2. The step of 5 and the step of 3 only change the constant (1/60), never the exponent.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>TD G1 · Integrated analysis <span class="pts">exam-level</span></h3>
+<pre><code>void analyze(int n) {
+    long count = 0;
+
+    for (int i = 1; i &lt;= n; i *= 2) {
+        for (int j = 0; j &lt; i; j++)
+            count++;
+    }
+
+    if (n % 2 == 0) {
+        for (int k = 0; k &lt; n; k += 2)
+            count++;
+    } else {
+        for (int k = 1; k &lt;= n; k++)
+            for (int m = 1; m &lt;= k; m++)
+                count++;
+    }
+}</code></pre>
+      <p>Give: (1) the cost of the first nested loop (geometric series), (2) the even branch, (3) the odd branch (summation), (4) the worst-case complexity, (5) a tight bound for odd inputs, (6) why the first loop is not Θ(n log n).</p>
+      <div class="solution">
+<pre><code>void analyze(int n) {
+    long count = 0;                           // O(1)
+
+    for (int i = 1; i &lt;= n; i *= 2) {         // i = 1, 2, 4, ..., 2^m &lt;= n
+        for (int j = 0; j &lt; i; j++)           // i iterations
+            count++;                          // total 1+2+...+2^m = 2^(m+1)-1 -&gt; Theta(n)
+    }
+
+    if (n % 2 == 0) {                         // condition: O(1)
+        for (int k = 0; k &lt; n; k += 2)        // k = 0, 2, 4, ... -&gt; n/2 iterations
+            count++;                          // even branch: Theta(n)
+    } else {
+        for (int k = 1; k &lt;= n; k++)          // n iterations
+            for (int m = 1; m &lt;= k; m++)      // k iterations (dependent)
+                count++;                      // sum k = n(n+1)/2 -&gt; Theta(n^2)
+    }
+}</code></pre>
+        <ol>
+          <li><strong>First loop:</strong> 1 + 2 + ⋯ + 2ᵐ = 2<sup>m+1</sup> − 1 with m = ⌊log₂ n⌋, which lies between n and 2n − 1 → <strong>Θ(n)</strong>.</li>
+          <li><strong>Even branch:</strong> ⌈n/2⌉ iterations → <strong>Θ(n)</strong>.</li>
+          <li><strong>Odd branch:</strong> Σ<sub>k=1</sub><sup>n</sup> k = n(n+1)/2 → <strong>Θ(n²)</strong>.</li>
+          <li><strong>Worst case:</strong> T = Θ(n) + O(1) + max(Θ(n), Θ(n²)) = <strong>O(n²)</strong>, reached when n is odd.</li>
+          <li><strong>Odd n:</strong> T(n) = Θ(n) + Θ(n²) = <strong>Θ(n²)</strong> (for even n it would be Θ(n)).</li>
+          <li>The inner loop of the first block does i work, not n. The costs form a geometric series dominated by its last term (≈ n), so the total is linear. "log n iterations × n" is only a loose upper bound.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Write one Σ per loop, evaluate from the inside out, and use the five formulas. A doubling series ≈ 2 × its last term. A sum of logs ≈ n log n. If you can do G1 alone, World 1 is cleared. 🎉</p></div>
+    <p><a class="go" href="#lvl-5">Enter World 2 · Linked Lists →</a></p>
+  </article>
+</section>
+
+<!-- ============ WORLD 2: LINKED LISTS ============ -->
+<section class="view" id="world2" data-a="2" data-title="World 2 · Linked Lists in C" data-unit="level" data-desc="Arrays vs lists, the pointer monster, and every lab operation, with fully commented C. Chapter 2, Lab 01 and the whiteboard sessions.">
+
+  <article id="lvl-5" data-kicker="Level 5" data-title="Arrays vs Linked Lists: The Train and the Treasure Hunt" data-meta="+150 XP · about 30 minutes · Chapter 2, first part" data-xp="150">
+    <p class="lead">Two ways to keep a list of things in memory. Each is fast at what the other is slow at. Knowing <em>why</em> is a classic exam question.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the array is a row of numbered lockers"><p>An <strong>array</strong> is a row of lockers glued side by side and numbered 0, 1, 2… To open locker 57 you walk straight to it: address = start + 57 × locker size. That's <strong>O(1) access</strong>. But the row has a fixed length, and to squeeze a new item in at the front, everyone has to <em>shift one locker to the right</em>: <strong>O(n)</strong>.</p></div>
+    <div class="callout" data-t="Analogy: the linked list is a treasure hunt"><p>A <strong>linked list</strong> is a treasure hunt. Each clue (<em>node</em>) holds a prize (<em>data</em>) and a note saying where the next clue is hidden (<em>next pointer</em>). The clues can be anywhere in town (anywhere in RAM). Adding a clue is easy: just rewrite one note, with no shifting. But to reach clue 57 you must follow clues 1, 2, 3… one by one: <strong>O(n) access</strong>. You only ever hold the location of the first clue: the <strong>head</strong>. The last clue says "THE END" (<strong>NULL</strong>).</p></div>
+
+<pre><code>ARRAY (contiguous)                          LINKED LIST (scattered, linked by addresses)
+address: 1000 1004 1008 1012                head
+        +----+----+----+----+                 |
+        | 23 | 54 | 78 | 90 |                 v   @1000            @4000            @2000
+        +----+----+----+----+               +----+------+      +----+------+    +----+------+
+index:    0    1    2    3                  | 23 | 4000 |-----&gt;| 54 | 2000 |---&gt;| 78 | NULL |
+                                            +----+------+      +----+------+    +----+------+
+a[2] -&gt; 1000 + 2*4 = 1008, instantly          data  next</code></pre>
+
+    <h3>2 · The comparison table (learn it by heart)</h3>
+    <div class="tw"><table><thead><tr><th>Operation</th><th>Array</th><th>Singly linked list (head only)</th></tr></thead><tbody>
+      <tr><td>Access k-th element</td><td><strong>O(1)</strong> direct address computation</td><td>O(n): traverse from head</td></tr>
+      <tr><td>Update k-th element</td><td><strong>O(1)</strong></td><td>O(n) to reach it</td></tr>
+      <tr><td>Insert at beginning</td><td>O(n): shift everything right</td><td><strong>O(1)</strong>: relink head</td></tr>
+      <tr><td>Insert at end</td><td><strong>O(1)</strong> if there is free space</td><td>O(n) to walk to the last node (O(1) with a tail pointer)</td></tr>
+      <tr><td>Insert in middle (position known)</td><td>O(n): shifting</td><td>O(n) to find the spot, then <strong>O(1)</strong> to relink</td></tr>
+      <tr><td>Delete at beginning</td><td>O(n): shift left</td><td><strong>O(1)</strong></td></tr>
+      <tr><td>Delete at end</td><td><strong>O(1)</strong></td><td>O(n): need the second-to-last node</td></tr>
+      <tr><td>Search (unsorted)</td><td>best O(1), worst O(n)</td><td>best O(1), worst O(n)</td></tr>
+      <tr><td>Size</td><td>fixed (static)</td><td>grows and shrinks (dynamic)</td></tr>
+      <tr><td>Memory</td><td>contiguous block, data only</td><td>anywhere in RAM, extra pointer per node</td></tr>
+    </tbody></table></div>
+    <div class="callout tip" data-t="One-sentence summary"><p>Arrays are fast to <em>read</em> (random access), linked lists are fast to <em>change</em> (no shifting). Arrays insert/delete away from the end with O(n) shifting; lists access by index with O(n) traversal.</p></div>
+
+    <h3>3 · The three kinds of linked lists</h3>
+    <div class="tw"><table><thead><tr><th>Type</th><th>Each node has</th><th>Picture</th></tr></thead><tbody>
+      <tr><td>Singly</td><td>data + <code>next</code></td><td>head → A → B → C → NULL (forward only)</td></tr>
+      <tr><td>Doubly</td><td><code>prev</code> + data + <code>next</code></td><td>NULL ← A ⇄ B ⇄ C → NULL (both ways)</td></tr>
+      <tr><td>Circular</td><td>data + <code>next</code>; the last node points back to the first</td><td>A → B → C → (back to A)</td></tr>
+    </tbody></table></div>
+
+    <h3>4 · The Challenge</h3>
+    <div class="ex">
+      <h3>Choose the right structure</h3>
+      <p>For each scenario, choose array or linked list and justify with complexity.</p>
+      <ol type="a"><li>A security log where events arrive constantly and the number is unknown in advance (the lab scenario).</li><li>A table of 365 daily temperatures, read very often by day number.</li><li>A music playlist where you often insert songs at the front and remove songs from the middle while playing.</li></ol>
+      <div class="solution" data-label="answer">
+        <ol type="a"><li><strong>Linked list</strong>: dynamic size (malloc a node per event, no fixed capacity), and inserting at the beginning is O(1).</li><li><strong>Array</strong>: fixed size known in advance, and access by index <code>t[day]</code> is O(1) (a list would be O(n) per lookup).</li><li><strong>Linked list</strong> (ideally doubly): insert at front O(1), remove a node you're already on by relinking O(1), with no shifting. An array would shift O(n) elements every time.</li></ol>
+      </div>
+    </div>
+    <div class="ex">
+      <h3>Exam question · Why does a list beat an array at the front?</h3>
+      <p>Explain, with complexities, why inserting at the beginning of an array of n elements costs O(n) while it costs O(1) in a linked list. Then give one disadvantage of linked lists.</p>
+      <div class="solution" data-label="model answer">
+        <p>In an array, elements are stored <strong>contiguously</strong>. To put a new element at index 0, every existing element must move one position to the right to free the slot, which is n shifts: <strong>O(n)</strong> (one shift = one unit of time, as in the slides). In a linked list, nodes are linked by pointers, so we only allocate a node, set <code>newNode->next = head</code> and <code>head = newNode</code>. That's a fixed number of operations whatever n is: <strong>O(1)</strong>.</p>
+        <p><strong>Disadvantage:</strong> no random access. Reading the k-th element requires following k pointers (O(n)). Each node also wastes memory on its pointer.</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Array = numbered lockers (O(1) access, O(n) shifting). List = treasure hunt (O(1) relinking, O(n) access). head = the first clue, NULL = the end.</p></div>
+  </article>
+
+  <article id="lvl-6" data-kicker="Level 6" data-title="Taming the C-Pointer Monster" data-meta="+300 XP · about 75 minutes · Lab 01 Parts A–C" data-xp="300">
+    <p class="lead">Pointers scare everyone at first. In reality there are only five symbols to master: <code>&amp;</code>, <code>*</code>, <code>.</code>, <code>-&gt;</code> and <code>malloc</code>/<code>free</code>. Master them here and linked lists become easy.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: houses and addresses"><p>Memory is a long street of houses. Each house has an <strong>address</strong> (like 0x1000) and something inside (a <strong>value</strong>, like 5).</p><ul><li>A normal variable <code>int severity = 5;</code> is a house with 5 inside.</li><li><code>&amp;severity</code> means "<strong>what's the address of</strong> that house?" → 0x1000.</li><li>A <strong>pointer</strong> <code>int *p</code> is a sticky note with an address written on it. <code>p = &amp;severity;</code> writes 0x1000 on the note.</li><li><code>*p</code> means "<strong>go to</strong> the address on the note and look inside": you find 5. <code>*p = 8;</code> means "go there and replace what's inside with 8", so severity is now 8.</li></ul></div>
+<pre><code>        p                         severity
+   +----------+  points to   +-----------+
+   |  0x1000  | -----------&gt; |     5     |    address 0x1000
+   +----------+              +-----------+
+   p == &amp;severity            *p == severity == 5</code></pre>
+
+    <div class="callout" data-t="Analogy: struct = a form with fields, -> = &quot;go to the house, then open the field&quot;"><p>A <code>struct</code> is a paper form with several boxes: ID, severity, code. If you hold the <strong>form itself</strong>, you read a box with a dot: <code>event1.severity</code>. If you only hold a <strong>sticky note with the form's address</strong>, you first go there, then read the box: <code>ptr-&gt;severity</code>, which is exactly <code>(*ptr).severity</code>.</p></div>
+
+    <div class="callout" data-t="Analogy: malloc = renting a storage unit"><p><code>malloc(sizeof(struct node))</code> asks the system: "rent me a storage unit big enough for one node." It gives you back the unit's <strong>address</strong>, or <code>NULL</code> if nothing is free. That memory lives on the <strong>heap</strong>: it stays alive after the function returns, until you give the key back with <code>free()</code>. Forget to free it and you have a <strong>memory leak</strong>. Use it after freeing and you have a <strong>dangling pointer</strong>.</p></div>
+
+    <h3>2 · The Syntax: the five symbols</h3>
+    <div class="tw"><table><thead><tr><th>Symbol</th><th>Read it as</th><th>Example</th><th>Result</th></tr></thead><tbody>
+      <tr><td><code>int *p;</code></td><td>"p is a pointer to an int" (in a declaration)</td><td><code>int *p = &amp;x;</code></td><td>p holds x's address</td></tr>
+      <tr><td><code>&amp;x</code></td><td>"address of x"</td><td><code>scanf("%d", &amp;n);</code></td><td>e.g. 0x1000</td></tr>
+      <tr><td><code>*p</code></td><td>"the value at the address in p" (dereference)</td><td><code>*p = 8;</code></td><td>x becomes 8</td></tr>
+      <tr><td><code>s.field</code></td><td>"field of the struct s"</td><td><code>event1.eventID</code></td><td>101</td></tr>
+      <tr><td><code>p-&gt;field</code></td><td>"field of the struct p points to" = <code>(*p).field</code></td><td><code>ptr-&gt;severity = 4;</code></td><td>event1.severity is 4</td></tr>
+      <tr><td><code>malloc</code> / <code>free</code></td><td>rent / return heap memory</td><td><code>n = malloc(sizeof(struct node));</code></td><td>address or NULL</td></tr>
+      <tr><td><code>NULL</code></td><td>"points nowhere" (value 0)</td><td><code>head = NULL;</code></td><td>empty list / end of list</td></tr>
+    </tbody></table></div>
+    <div class="callout warn" data-t="The * has two jobs"><p>In a <strong>declaration</strong> (<code>int *p</code>) the star says "p is a pointer". In an <strong>expression</strong> (<code>*p = 8</code>) the star says "go to the address". Same symbol, two meanings. And <code>(*ptr).field</code> needs the parentheses, because <code>.</code> binds tighter than <code>*</code>. That's why C gives you <code>-&gt;</code>.</p></div>
+
+    <p><strong>A node in 6 lines, with memory explained:</strong></p>
+<pre><code>struct node {                  // blueprint of one "clue" of the treasure hunt
+    int data;                  // the prize stored in this node
+    struct node *next;         // address of the next node (self-referential structure)
+};
+struct node *head = malloc(sizeof(struct node)); // rent one node on the heap; head = its address
+head-&gt;data = 15;               // go to that node, write 15 in its data box
+head-&gt;next = NULL;             // this node is the last one: "THE END"</code></pre>
+    <div class="callout" data-t="Why struct node *next and not struct node next?"><p>A node containing a whole node would contain a node that contains a node… infinitely. A <em>pointer</em> is just an address, a fixed-size number, so the structure has a finite size. A structure with a member pointing to its own type is called <strong>self-referential</strong>.</p></div>
+
+    <p><strong>Pass by value vs pass by reference:</strong></p>
+    <div class="callout" data-t="Analogy: the photocopy and the house key"><p><strong>Pass by value</strong> gives the function a <em>photocopy</em> of your document. It can scribble on it all it wants; your original is untouched. <strong>Pass by reference</strong> (passing a pointer) gives the function <em>the address of your house</em>. It walks in and changes the real thing.</p></div>
+
+    <p><strong>The double pointer <code>struct node **head</code>:</strong> to let a function change <em>which node</em> <code>head</code> points to (insert at beginning, delete first node…), you must pass the <strong>address of head</strong>, i.e. a pointer to a pointer. Inside, <code>*head</code> is the real head of <code>main</code>.</p>
+<pre><code>main:      head  [ 0x2000 ] ---------&gt; [101|...]     (head lives at address 0x0500)
+function:  head  [ 0x0500 ] ---&gt; main's head
+           *head            = 0x2000  (the real head pointer, which we can change)
+           (*head)-&gt;eventID = 101     (parentheses needed!)</code></pre>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>Lab Ex 1 · Inspect an integer through a pointer</h3>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int severity = 5;
+    int *p = &amp;severity;
+
+    printf("severity = %d\n", severity);
+    printf("&amp;severity = %p\n", (void *)&amp;severity);
+    printf("p = %p\n", (void *)p);
+    printf("*p = %d\n", *p);
+
+    *p = 8;
+    printf("severity after *p = 8: %d\n", severity);
+
+    return 0;
+}</code></pre>
+      <p>Explain in one sentence why changing <code>*p</code> changes <code>severity</code>. Checkpoint: p and &amp;severity print the same address, and the final severity is 8.</p>
+      <div class="solution">
+<pre><code>#include &lt;stdio.h&gt;                          // gives us printf
+
+int main(void) {
+    int severity = 5;                       // a box in memory (say at 0x1000) containing 5
+    int *p = &amp;severity;                     // p is a pointer; it now stores 0x1000 (the box's address)
+
+    printf("severity = %d\n", severity);    // reads the box directly            -&gt; 5
+    printf("&amp;severity = %p\n", (void *)&amp;severity); // the box's address        -&gt; 0x1000
+    printf("p = %p\n", (void *)p);          // the content of p = same address  -&gt; 0x1000
+    printf("*p = %d\n", *p);                // go to 0x1000, read what's inside -&gt; 5
+
+    *p = 8;                                 // go to 0x1000 and WRITE 8 there (overwrites the 5)
+    printf("severity after *p = 8: %d\n", severity); // the box now holds 8   -&gt; 8
+
+    return 0;                               // end of program, success
+}</code></pre>
+        <p><strong>One-sentence answer:</strong> <code>p</code> holds the address of <code>severity</code>, so <code>*p</code> <em>is</em> the memory cell of <code>severity</code>: writing through <code>*p</code> writes directly into <code>severity</code>.</p>
+        <p><code>%p</code> prints an address. The <code>(void *)</code> cast is what <code>printf</code> expects for <code>%p</code>. Complexity: O(1), with no loops.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 2 · Create a security-event structure</h3>
+      <p>Define <code>struct SecurityEvent { int eventID; int severity; char code[20]; };</code>, create <code>event1</code> with 101, 5, "LOGIN_FAIL", and display it using the member operator <code>.</code>.</p>
+      <div class="solution">
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;                    // for strcpy (copying text into a char array)
+
+struct SecurityEvent {                 // the "form" with three boxes
+    int eventID;                       // box 1: an int
+    int severity;                      // box 2: an int
+    char code[20];                     // box 3: room for 19 characters + the '\0' terminator
+};
+
+int main(void) {
+    struct SecurityEvent event1;       // one form, allocated on the stack (no malloc needed)
+
+    event1.eventID = 101;              // '.' because event1 IS the structure itself
+    event1.severity = 5;
+    strcpy(event1.code, "LOGIN_FAIL"); // arrays can't be assigned with '=', so copy the string in
+
+    printf("event1: eventID = %d, severity = %d, code = %s\n",
+           event1.eventID, event1.severity, event1.code);
+    return 0;
+}</code></pre>
+        <div class="callout warn" data-t="Common mistake"><p><code>event1.code = "LOGIN_FAIL";</code> does <strong>not</strong> compile. You can't assign to an array in C. Use <code>strcpy</code>, or initialise at declaration: <code>struct SecurityEvent event1 = {101, 5, "LOGIN_FAIL"};</code></p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 3 · Access the same structure through a pointer</h3>
+<pre><code>struct SecurityEvent *ptr = &amp;event1;
+
+printf("ID: %d\n", ptr-&gt;eventID);
+printf("Severity: %d\n", ptr-&gt;severity);
+printf("Code: %s\n", ptr-&gt;code);
+
+ptr-&gt;severity = 4;</code></pre>
+      <p>Then display <code>event1.severity</code> again. What prints, and why?</p>
+      <div class="solution">
+<pre><code>struct SecurityEvent *ptr = &amp;event1;    // ptr stores the ADDRESS of event1 (no copy is made)
+
+printf("ID: %d\n", ptr-&gt;eventID);       // go to event1, read eventID   -&gt; 101
+printf("Severity: %d\n", ptr-&gt;severity);// go to event1, read severity  -&gt; 5
+printf("Code: %s\n", ptr-&gt;code);        // go to event1, read code      -&gt; LOGIN_FAIL
+
+ptr-&gt;severity = 4;                      // go to event1 and overwrite severity with 4
+                                        // identical to: (*ptr).severity = 4;
+printf("event1.severity = %d\n", event1.severity); // -&gt; 4 (same memory!)</code></pre>
+        <p>It prints <strong>4</strong>: <code>ptr</code> and <code>event1</code> refer to the <em>same</em> memory. Rule: <code>object.member</code> when you have the structure, <code>pointer-&gt;member</code> when you have its address.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 4 · Pass by value vs pass by reference</h3>
+<pre><code>void changeByValue(int x)      { x = 10; }
+void changeByReference(int *x) { *x = 10; }
+
+int severity = 5;
+changeByValue(severity);
+printf("After value: %d\n", severity);
+changeByReference(&amp;severity);
+printf("After reference: %d\n", severity);</code></pre>
+      <p>Predict both outputs before running.</p>
+      <div class="solution">
+<pre><code>void changeByValue(int x) {     // x is a brand-new local variable holding a COPY (5)
+    x = 10;                     // changes the copy only; it is destroyed when the function returns
+}
+
+void changeByReference(int *x) {// x holds the ADDRESS of main's severity
+    *x = 10;                    // go to that address and write 10: the original changes
+}
+
+int severity = 5;
+changeByValue(severity);                    // sends the value 5 (the photocopy)
+printf("After value: %d\n", severity);      // -&gt; After value: 5
+changeByReference(&amp;severity);               // sends the address of severity (the house key)
+printf("After reference: %d\n", severity);  // -&gt; After reference: 10</code></pre>
+        <p><strong>Output:</strong> <code>After value: 5</code> then <code>After reference: 10</code>.</p>
+        <p><strong>Link to linked lists:</strong> this is exactly why <code>insertBeginning(struct node **head, …)</code> receives <code>&amp;head</code>. To change main's <code>head</code> pointer, the function needs its <em>address</em>. If it received <code>struct node *head</code> by value, it would only change a copy and main's list would never see the new first node.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Pointer tracing drill <span class="pts">exam style</span></h3>
+<pre><code>int a = 3, b = 7;
+int *p = &amp;a, *q = &amp;b;
+*p = *p + *q;
+p = q;
+*p = 1;
+printf("%d %d %d\n", a, b, *p);</code></pre>
+      <p>What is printed?</p>
+      <div class="solution" data-label="answer">
+<pre><code>int a = 3, b = 7;      // a = 3, b = 7
+int *p = &amp;a, *q = &amp;b;  // p -&gt; a, q -&gt; b
+*p = *p + *q;          // a = a + b = 10
+p = q;                 // p now points to b (we copy the ADDRESS, not the value)
+*p = 1;                // b = 1
+printf("%d %d %d\n", a, b, *p);  // a = 10, b = 1, *p = b = 1</code></pre>
+        <p><strong>Prints: <code>10 1 1</code></strong>. Key distinction: <code>p = q</code> changes <em>where p points</em>; <code>*p = q</code> would be a type error; <code>*p = *q</code> copies the value.</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p><code>&amp;</code> = get the address. <code>*</code> = go to the address. <code>.</code> on a struct, <code>-&gt;</code> on a pointer to a struct. <code>malloc</code> rents (check for NULL!), <code>free</code> returns. Need to change a caller's variable? Pass its address. Need to change the caller's <em>head pointer</em>? Pass <code>&amp;head</code> as <code>struct node **</code>.</p></div>
+  </article>
+
+  <article id="lvl-7" data-kicker="Level 7" data-title="Your First Chain: Create, Traverse, Count, Search" data-meta="+200 XP · about 45 minutes · Chapter 2 · Lab Ex 8–9" data-xp="200">
+    <p class="lead">Now you build a real list by hand, then learn the one loop behind display, count, search and almost every other list operation.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the conga line"><p>A linked list is a conga line where each dancer holds the shoulder of the person in front. You (the <strong>head</strong> pointer) only know the first dancer. To count the dancers you walk along the line, tapping each shoulder and following the hand to the next one, until you reach a dancer whose hand holds nobody (<strong>NULL</strong>). That walk is called <strong>traversal</strong>, and it always takes n steps: O(n).</p></div>
+    <div class="callout warn" data-t="The golden rule: never let go of the head"><p>If you move <code>head</code> itself to walk the list, you lose the first dancer forever. Nothing points to them any more, so that memory is leaked. Always walk with a <strong>copy</strong>: <code>struct node *current = head;</code></p></div>
+
+    <h3>2 · The Syntax / Example</h3>
+    <p><strong>Building 23 → 54 → 3 by hand</strong> (the slides' "Method 2", with no unnecessary pointers):</p>
+<pre><code>struct node {
+    int data;
+    struct node *next;
+};
+
+int main(void) {
+    struct node *head = malloc(sizeof(struct node)); // node A rented on the heap, head = its address
+    head-&gt;data = 23;                  // A.data = 23
+    head-&gt;next = NULL;                // for now A is the last node
+
+    struct node *current = malloc(sizeof(struct node)); // node B rented, current = its address
+    current-&gt;data = 54;               // B.data = 54
+    current-&gt;next = NULL;             // B is the last node
+    head-&gt;next = current;             // A -&gt; B (link A to B)
+
+    current = malloc(sizeof(struct node)); // REUSE current for node C (B is still reachable via head-&gt;next)
+    current-&gt;data = 3;                // C.data = 3
+    current-&gt;next = NULL;             // C is the last node
+    head-&gt;next-&gt;next = current;       // B -&gt; C, so we have head -&gt; 23 -&gt; 54 -&gt; 3 -&gt; NULL
+    return 0;
+}</code></pre>
+    <div class="callout warn" data-t="The slides' trap: overwriting head"><p>Writing <code>head = malloc(...)</code> a second time makes head point to the new node, and <strong>the first node is lost</strong>. Nothing holds its address any more. Always link a new node <em>before</em> moving the only pointer to the old one.</p></div>
+    <p>With addresses head = 1000, second node = 2000, third = 4000: <code>head-&gt;next</code> = 2000, <code>head-&gt;next-&gt;next</code> = 4000, <code>head-&gt;next-&gt;next-&gt;next</code> = NULL.</p>
+
+    <p><strong>The universal traversal loop</strong>, which you will write 100 times:</p>
+<pre><code>struct node *current = head;     // start at the first node (copy, don't move head)
+while (current != NULL) {        // as long as we are on a real node
+    /* ... do something with current-&gt;data ... */
+    current = current-&gt;next;     // step to the next node (the line everybody forgets!)
+}                                // here current == NULL: we fell off the end</code></pre>
+    <div class="tw"><table><thead><tr><th>Loop condition</th><th>Stops on</th><th>Use it for</th></tr></thead><tbody>
+      <tr><td><code>while (current != NULL)</code></td><td>after the last node (current = NULL)</td><td>visit <em>every</em> node: display, count, search, free</td></tr>
+      <tr><td><code>while (current-&gt;next != NULL)</code></td><td>the last node</td><td>insert at end (you need the last node). Crashes if the list is empty!</td></tr>
+      <tr><td><code>while (current-&gt;next-&gt;next != NULL)</code></td><td>the second-to-last node</td><td>delete at end. Needs ≥ 2 nodes!</td></tr>
+    </tbody></table></div>
+
+    <h3>3 · The Challenge</h3>
+    <p>All lab exercises use the security-event node:</p>
+<pre><code>struct node {
+    int eventID;
+    int severity;
+    struct node *next;
+};</code></pre>
+
+    <div class="ex">
+      <h3>Lab Ex 8 · Display all events</h3>
+<pre><code>void display(struct node *head) {
+    struct node *current = head;
+
+    while (current != NULL) {
+        printf("ID: %d | Severity: %d\n",
+               current-&gt;eventID,
+               current-&gt;severity);
+
+        ______________________________;
+    }
+}</code></pre>
+      <div class="solution">
+<pre><code>void display(struct node *head) {      // head passed BY VALUE: we only read, so we never change main's head
+    struct node *current = head;       // walker starts at the first node
+
+    if (head == NULL) {                // bonus: friendly message for an empty list
+        printf("List is empty\n");
+        return;
+    }
+    while (current != NULL) {          // loop over every real node
+        printf("ID: %d | Severity: %d\n",
+               current-&gt;eventID,       // read this node's ID
+               current-&gt;severity);     // read this node's severity
+
+        current = current-&gt;next;       // THE BLANK: hop to the next node (else: infinite loop!)
+    }
+}</code></pre>
+        <p><strong>Blank:</strong> <code>current = current-&gt;next</code>. <strong>Complexity:</strong> each node is visited once → <strong>O(n)</strong> time, and O(1) extra memory (just one pointer).</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 9 · Count nodes</h3>
+      <p>Implement <code>int countNodes(struct node *head)</code> and test it after every insertion and deletion. Trace: current at 101 → count 1, at 102 → 2, at 103 → 3.</p>
+      <div class="solution">
+<pre><code>int countNodes(struct node *head) {
+    int count = 0;                 // nothing counted yet (an empty list correctly returns 0)
+    struct node *current = head;   // walker at the first node
+
+    while (current != NULL) {      // for each real node...
+        count++;                   // ...count it...
+        current = current-&gt;next;   // ...and move to the next one
+    }
+
+    return count;                  // number of nodes visited
+}</code></pre>
+        <p><strong>O(n)</strong>: one step per node. Note the slides' version <code>count_of_nodes</code> prints "Linked List is empty" when head == NULL. Returning 0 handles that case naturally.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Chapter 2 · Search for a key</h3>
+      <p>Write <code>bool searchNode(struct node *head, int key)</code> that returns true if an event with that ID exists. Give the best and worst case.</p>
+      <div class="solution">
+<pre><code>#include &lt;stdbool.h&gt;                // for bool, true, false
+
+bool searchNode(struct node *head, int key) {
+    struct node *current = head;     // start at the head
+    while (current != NULL) {        // until the end of the list
+        if (current-&gt;eventID == key) // is this the one?
+            return true;             // found: stop immediately
+        current = current-&gt;next;     // not this one: next node
+    }
+    return false;                    // walked the whole list without finding it
+}</code></pre>
+        <p><strong>Best case O(1)</strong> (the key is in the first node). <strong>Worst case O(n)</strong> (the key is last or absent). A sorted linked list doesn't help: there's no binary search, because you can't jump to the middle.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Chapter 2 · Sort the list (swap data)</h3>
+      <p>Sort the list by ascending eventID by swapping data between nodes (as in the lecture). Give its complexity.</p>
+      <div class="solution">
+<pre><code>void sortList(struct node *head) {
+    if (head == NULL || head-&gt;next == NULL)   // 0 or 1 node: already sorted
+        return;
+
+    struct node *current, *index;
+    int tmp;
+
+    for (current = head; current != NULL; current = current-&gt;next) {          // each node...
+        for (index = current-&gt;next; index != NULL; index = index-&gt;next) {     // ...vs every node after it
+            if (current-&gt;eventID &gt; index-&gt;eventID) {   // wrong order?
+                tmp = current-&gt;eventID;                // swap the IDs
+                current-&gt;eventID = index-&gt;eventID;
+                index-&gt;eventID = tmp;
+                tmp = current-&gt;severity;               // swap the severities too, so they stay paired
+                current-&gt;severity = index-&gt;severity;
+                index-&gt;severity = tmp;
+            }
+        }
+    }
+}</code></pre>
+        <p>The inner loop runs (n−1) + (n−2) + … + 1 = n(n−1)/2 times → <strong>O(n²)</strong>. The nodes don't move; only their contents are swapped. This is a selection-style exchange sort.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture question · Linking nodes</h3>
+      <p>Three stack nodes a, b, c hold 1, 2, 3, with <code>a.next = &amp;b; b.next = &amp;c; c.next = NULL;</code>. What are <code>a.next-&gt;data</code> and <code>a.next-&gt;next-&gt;data</code>?</p>
+      <div class="solution" data-label="answer">
+        <p><code>a.next</code> is the address of b, so <code>a.next-&gt;data</code> = <strong>2</strong>. <code>a.next-&gt;next</code> is the address of c, so <code>a.next-&gt;next-&gt;data</code> = <strong>3</strong>. Note the mix: <code>a</code> is a struct (use <code>.</code>), <code>a.next</code> is a pointer (use <code>-&gt;</code>).</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Walk with a copy (<code>current = head</code>), never with head. The loop body must end with <code>current = current-&gt;next</code>. Visiting every node is O(n).</p></div>
+  </article>
+
+  <article id="lvl-8" data-kicker="Level 8" data-title="Insertion Arena: Beginning, End and Middle" data-meta="+300 XP · about 60 minutes · Lab Ex 5–7" data-xp="300">
+    <p class="lead">Three insertions, one secret: <strong>connect the new node first, then redirect the old link.</strong> Do it in the wrong order and you lose the rest of the list.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: joining a human chain"><p>Kids hold hands in a line. A new kid wants to join between Ali and Sara. <strong>Step 1:</strong> the new kid grabs Sara's hand (<code>newNode-&gt;next = ali-&gt;next</code>). <strong>Step 2:</strong> Ali lets go of Sara and grabs the new kid (<code>ali-&gt;next = newNode</code>). If Ali lets go first, Sara and everyone behind her wander off and are lost.</p></div>
+    <div class="tw"><table><thead><tr><th>Where</th><th>Steps</th><th>Cost</th></tr></thead><tbody>
+      <tr><td>Beginning</td><td>malloc → fill → <code>new-&gt;next = head</code> → <code>head = new</code></td><td><strong>O(1)</strong></td></tr>
+      <tr><td>End</td><td>malloc → fill → <code>new-&gt;next = NULL</code> → walk to the last node → <code>last-&gt;next = new</code></td><td><strong>O(n)</strong> (the walk)</td></tr>
+      <tr><td>Middle (after X)</td><td>malloc → fill → find X → <code>new-&gt;next = X-&gt;next</code> → <code>X-&gt;next = new</code></td><td><strong>O(n)</strong> search + O(1) relink</td></tr>
+    </tbody></table></div>
+
+    <h3>2 · Playground: watch the pointers move</h3>
+    <p>Try each operation and read the C lines that run. Watch which arrows change.</p>
+    <div id="playground" class="play"></div>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>Lab Ex 5 · Insert at the beginning</h3>
+      <p>Implement <code>insertBeginning(struct node **head, int id, int severity)</code>, call it twice, and verify that the newest node becomes the first: <code>new head -&gt; [100] -&gt; [101] -&gt; [102]</code>.</p>
+      <div class="solution">
+<pre><code>void insertBeginning(struct node **head, int id, int severity) {
+    // head is the ADDRESS of main's head pointer, so *head is main's head itself
+
+    struct node *newNode = malloc(sizeof(struct node)); // rent one node-sized block on the heap
+
+    if (newNode == NULL) {                // malloc failed (no memory left)
+        printf("Memory allocation failed\n");
+        return;                           // leave the list untouched
+    }
+
+    newNode-&gt;eventID = id;                // fill the data fields
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = *head;                // STEP 1: new node points to the current first node
+                                          // (NULL if the list was empty: still correct!)
+    *head = newNode;                      // STEP 2: main's head now points to the new node
+}
+
+// usage in main:
+struct node *head = NULL;                 // empty list
+insertBeginning(&amp;head, 102, 3);           // head -&gt; [102] -&gt; NULL
+insertBeginning(&amp;head, 101, 5);           // head -&gt; [101] -&gt; [102] -&gt; NULL
+insertBeginning(&amp;head, 100, 5);           // head -&gt; [100] -&gt; [101] -&gt; [102] -&gt; NULL</code></pre>
+<pre><code>before:            head ------------------&gt; [101] -&gt; [102] -&gt; NULL
+step 1:  [100] --next--------------------&gt; [101]
+step 2:  head -&gt; [100] -&gt; [101] -&gt; [102] -&gt; NULL</code></pre>
+        <p><strong>Complexity: O(1).</strong> No loop: the same 5 operations whether the list has 3 or 3 million nodes. That's the big win over arrays (O(n) shifting).</p>
+        <div class="callout warn" data-t="Swap the two lines and you lose everything"><p><code>*head = newNode; newNode-&gt;next = *head;</code> makes the new node point to <em>itself</em>, and the old list is lost (leaked).</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 6 · Insert at the end (fill the blanks)</h3>
+<pre><code>void insertEnd(struct node **head, int id, int severity) {
+    struct node *newNode = malloc(sizeof(struct node));
+    if (newNode == NULL)
+        return;
+    newNode-&gt;eventID = id;
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = NULL;
+
+    if (*head == NULL) {
+        ______________________;
+    }
+
+    struct node *current = *head;
+    while (______________________) {
+        current = current-&gt;next;
+    }
+    ______________________ = newNode;
+}</code></pre>
+      <div class="solution">
+<pre><code>void insertEnd(struct node **head, int id, int severity) {
+    struct node *newNode = malloc(sizeof(struct node)); // rent a node
+    if (newNode == NULL)                 // always check malloc
+        return;
+    newNode-&gt;eventID = id;               // fill it
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = NULL;                // it will be the LAST node, so it points to nothing
+
+    if (*head == NULL) {                 // CASE 1: the list is empty
+        *head = newNode;                 // BLANK 1: the new node becomes the head...
+        return;                          // ...and we MUST stop here (see warning below)
+    }
+
+    struct node *current = *head;        // CASE 2: walk from the first node
+    while (current-&gt;next != NULL) {      // BLANK 2: stop ON the last node (its next is NULL)
+        current = current-&gt;next;         // hop forward
+    }
+    current-&gt;next = newNode;             // BLANK 3: the old last node now points to the new one
+}</code></pre>
+        <p><strong>Blanks:</strong> ① <code>*head = newNode; return;</code> ② <code>current-&gt;next != NULL</code> ③ <code>current-&gt;next</code>.</p>
+        <div class="callout warn" data-t="The forgotten return"><p>Without <code>return</code> in the empty case, the code continues: current = newNode, the loop doesn't run, then <code>current-&gt;next = newNode</code> makes the node point <em>to itself</em>, an infinite loop on the next display. Also, <code>while (current != NULL)</code> is wrong here: you'd fall off the end and have no last node to attach to.</p></div>
+        <p><strong>Complexity: O(n)</strong> because of the walk to the end. With an extra <code>tail</code> pointer it becomes O(1), which is exactly the idea behind the circular list's <code>last</code> pointer in Level 10.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 7 · Insert in the middle (after a given ID)</h3>
+      <p>Write <code>void insertAfter(struct node **head, int afterID, int newID, int severity);</code>. For 101 → 102 → 103, insert 150 after 101 to get 101 → 150 → 102 → 103.</p>
+      <div class="solution">
+<pre><code>void insertAfter(struct node **head, int afterID, int newID, int severity) {
+    struct node *current = *head;                  // start searching at the first node
+
+    while (current != NULL &amp;&amp; current-&gt;eventID != afterID) // ORDER MATTERS: test NULL first,
+        current = current-&gt;next;                   // otherwise current-&gt;eventID crashes on NULL
+
+    if (current == NULL) {                         // walked off the end: afterID doesn't exist
+        printf("Event %d not found\n", afterID);
+        return;                                    // (also covers the empty list)
+    }
+
+    struct node *newNode = malloc(sizeof(struct node)); // only allocate once we know where it goes
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+    newNode-&gt;eventID = newID;                      // fill the new node
+    newNode-&gt;severity = severity;
+
+    newNode-&gt;next = current-&gt;next;                 // STEP 1: new node grabs 101's successor (102)
+    current-&gt;next = newNode;                       // STEP 2: 101 now points to the new node
+}                                                  // result: 101 -&gt; 150 -&gt; 102 -&gt; 103</code></pre>
+<pre><code>current = [101]       [101] ----------------&gt; [102] -&gt; [103]
+step 1:               [150] --next----------&gt; [102]
+step 2:               [101] -&gt; [150] -&gt; [102] -&gt; [103]</code></pre>
+        <p><strong>Complexity: O(n)</strong> to find afterID (worst case: last or missing), then O(1) to relink. If afterID is the last node, current-&gt;next is NULL, so newNode-&gt;next = NULL. Inserting after the last node works with no special case.</p>
+        <p><strong>Variant from the slides, insert at a position:</strong> walk <code>position − 2</code> steps to reach the node <em>before</em> the position, then do the same two lines. Position 1 must be handled separately (it's insertBeginning).</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Always: malloc → check NULL → fill → <strong>new-&gt;next first</strong> → then redirect the old pointer. Beginning O(1), end O(n), middle O(n). The empty list is the edge case you must always handle.</p></div>
+  </article>
+
+  <article id="lvl-9" data-kicker="Level 9" data-title="Deletion Dungeon: Unlink, Then Free" data-meta="+350 XP · about 75 minutes · Lab Ex 10–12 + Final Program Test" data-xp="350">
+    <p class="lead">Deleting means two separate jobs: <strong>unlink</strong> the node so the list skips it, then <strong>free</strong> its memory. Keep a pointer to the victim before you unlink it, or you can't free it.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: leaving the human chain"><p>Sara wants to leave the chain Ali – Sara – Omar. First Ali grabs Omar's hand (<code>ali-&gt;next = sara-&gt;next</code>), so the chain is whole again. <em>Then</em> Sara goes home (<code>free(sara)</code>). If Sara left first, Ali would be holding nothing and Omar's whole side would be lost.</p><p>And you need to know who's <strong>before</strong> Sara (Ali). In a singly list you can't walk backwards, so while walking you keep two fingers: <code>previous</code> and <code>current</code>.</p></div>
+    <div class="callout warn" data-t="Memory 101"><p><strong>Leak:</strong> you unlink a node but never <code>free</code> it. That memory is lost until the program ends. <strong>Dangling pointer:</strong> you <code>free(temp)</code> and then use <code>temp-&gt;next</code>. Undefined behaviour. Read everything you need <em>before</em> freeing, and set the pointer to NULL afterwards (the whiteboard's <code>temp = NULL;</code>).</p></div>
+
+    <h3>2 · The Syntax: the four cases every deletion must handle</h3>
+    <div class="tw"><table><thead><tr><th>Case</th><th>Why it's special</th></tr></thead><tbody>
+      <tr><td>Empty list (<code>*head == NULL</code>)</td><td>nothing to delete; any <code>-&gt;</code> would crash</td></tr>
+      <tr><td>One node</td><td>head must become NULL</td></tr>
+      <tr><td>The target is the first node</td><td>head itself changes, hence <code>struct node **head</code></td></tr>
+      <tr><td>General case</td><td><code>previous-&gt;next = current-&gt;next; free(current);</code></td></tr>
+    </tbody></table></div>
+<pre><code>struct node *victim = previous-&gt;next;   // 1. remember the node to delete
+previous-&gt;next = victim-&gt;next;          // 2. bypass it (unlink)
+free(victim);                           // 3. give its memory back
+victim = NULL;                          // 4. good habit: no dangling pointer</code></pre>
+
+    <h3>3 · The Challenge</h3>
+    <div class="ex">
+      <h3>Lab Ex 10 · Delete from the beginning</h3>
+      <p>Implement <code>deleteBeginning(struct node **head)</code> and test it with at least three nodes. Picture: <code>temp -&gt; [101]</code> (free this node); <code>new head -&gt; [102] -&gt; [103]</code>.</p>
+      <div class="solution">
+<pre><code>void deleteBeginning(struct node **head) {
+    if (*head == NULL) {               // CASE empty: nothing to delete
+        printf("List is empty\n");
+        return;
+    }
+
+    struct node *temp = *head;         // 1. remember the first node (the victim)
+    *head = (*head)-&gt;next;             // 2. head moves to the 2nd node (NULL if there was only one)
+                                       //    parentheses are required: *head is a pointer, then -&gt;next
+    free(temp);                        // 3. release the old first node
+}</code></pre>
+<pre><code>before:  head -&gt; [101] -&gt; [102] -&gt; [103] -&gt; NULL
+temp = *head:    temp -&gt; [101]
+*head = next:    head -&gt; [102] -&gt; [103] -&gt; NULL        ([101] is unlinked)
+free(temp):      [101]'s memory is returned to the system</code></pre>
+        <p><strong>O(1)</strong>: no traversal. One-node list: <code>*head</code> becomes NULL, which correctly gives an empty list with no special case.</p>
+        <div class="callout warn" data-t="Wrong order"><p><code>free(*head); *head = (*head)-&gt;next;</code> reads <code>next</code> from freed memory: a dangling pointer. Remember first, move, then free.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 11 · Delete from the end</h3>
+      <p>Write <code>void deleteEnd(struct node **head);</code> using <code>current</code> and <code>previous</code>. Handle an empty list, a one-node list and a multi-node list. For multiple nodes: stop when <code>current-&gt;next == NULL</code>, set <code>previous-&gt;next = NULL</code>, then <code>free(current)</code>.</p>
+      <div class="solution">
+<pre><code>void deleteEnd(struct node **head) {
+    if (*head == NULL) {                    // CASE 1: empty list
+        printf("List is empty\n");
+        return;
+    }
+
+    if ((*head)-&gt;next == NULL) {            // CASE 2: only one node (it is both first and last)
+        free(*head);                        // release it
+        *head = NULL;                       // the list is now empty: main's head must know!
+        return;
+    }
+
+    struct node *previous = NULL;           // CASE 3: two or more nodes
+    struct node *current = *head;           // two fingers: previous trails one step behind current
+
+    while (current-&gt;next != NULL) {         // stop when current is ON the last node
+        previous = current;                 // previous moves to where current was
+        current = current-&gt;next;            // current moves one step forward
+    }
+    // now: current = last node, previous = second-to-last node
+
+    previous-&gt;next = NULL;                  // second-to-last becomes the new end
+    free(current);                          // release the old last node
+}</code></pre>
+<pre><code>101 -&gt; 102 -&gt; 103 -&gt; NULL
+       ^prev  ^current      (current-&gt;next == NULL, so stop)
+101 -&gt; 102 -&gt; NULL          previous-&gt;next = NULL; free(current)</code></pre>
+        <p><strong>O(n)</strong>: we must walk to the end to find the second-to-last node, because a singly list can't go backwards. (Even a tail pointer doesn't help here; a <em>doubly</em> list with tail would make it O(1).)</p>
+        <div class="callout" data-t="The slides' version and its bug"><p>The lecture first wrote <code>while (temp-&gt;next-&gt;next != NULL) temp = temp-&gt;next; temp-&gt;next = NULL; // wrong</code>, which leaks the last node. The fix: save <code>lastNode = temp-&gt;next;</code>, set <code>temp-&gt;next = NULL;</code>, then <code>free(lastNode);</code>. That version also needs ≥ 2 nodes, or <code>temp-&gt;next-&gt;next</code> crashes.</p></div>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab Ex 12 · Delete from the middle (by ID)</h3>
+      <p>Write <code>void deleteByID(struct node **head, int id);</code>. Example: delete 102 from 101 → 102 → 103 to get 101 → 103. Use a traversal pointer and track the previous node.</p>
+      <div class="solution">
+<pre><code>void deleteByID(struct node **head, int id) {
+    if (*head == NULL) {                       // empty list
+        printf("List is empty\n");
+        return;
+    }
+
+    struct node *previous = NULL;              // node before current (none yet)
+    struct node *current = *head;              // start at the first node
+
+    while (current != NULL &amp;&amp; current-&gt;eventID != id) { // search; test NULL FIRST
+        previous = current;                    // trail behind
+        current = current-&gt;next;               // advance
+    }
+
+    if (current == NULL) {                     // reached the end without finding id
+        printf("Event %d not found\n", id);
+        return;
+    }
+
+    if (previous == NULL)                      // the target is the FIRST node
+        *head = current-&gt;next;                 //   head skips it (may become NULL)
+    else                                       // the target is in the middle or at the end
+        previous-&gt;next = current-&gt;next;        //   previous skips it
+
+    free(current);                             // release the deleted node
+}</code></pre>
+<pre><code>search: 101 -&gt; 102 -&gt; 103
+        ^prev  ^current (eventID == 102, so stop)
+unlink: 101 ---------&gt; 103       previous-&gt;next = current-&gt;next
+free:   [102] released</code></pre>
+        <p><strong>O(n)</strong> worst case (target last or absent), O(1) best case (target first). This one function covers deleting the first, middle or last node.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lab · Final Program Test <span class="pts">the whole lab</span></h3>
+      <p>Run this sequence and check that the final list is 101 → 102 with count 2:</p>
+      <ol><li>Insert at end: 101 (sev 5), 102 (sev 3), 103 (sev 4)</li><li>Insert at beginning: 100 (sev 5)</li><li>Insert after 101: 150 (sev 2)</li><li>Display, count</li><li>Delete from beginning, delete from end, delete event 150</li><li>Display and count again</li></ol>
+      <div class="solution" data-label="complete lab01.c">
+<pre><code>/* lab01.c  -  Advanced Algorithms Lab 01: singly linked list of security events */
+#include &lt;stdio.h&gt;    // printf
+#include &lt;stdlib.h&gt;   // malloc, free
+
+struct node {                 // one security event
+    int eventID;              // e.g. 101
+    int severity;             // e.g. 5
+    struct node *next;        // address of the next event, or NULL at the end
+};
+
+/* ---------- INSERTIONS ---------- */
+void insertBeginning(struct node **head, int id, int severity) {   // O(1)
+    struct node *newNode = malloc(sizeof(struct node));  // rent a node
+    if (newNode == NULL) { printf("Memory allocation failed\n"); return; }
+    newNode-&gt;eventID = id;                               // fill
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = *head;                               // point to the old first node
+    *head = newNode;                                     // become the first node
+}
+
+void insertEnd(struct node **head, int id, int severity) {         // O(n)
+    struct node *newNode = malloc(sizeof(struct node));
+    if (newNode == NULL) return;
+    newNode-&gt;eventID = id;
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = NULL;                                // will be the last node
+    if (*head == NULL) { *head = newNode; return; }      // empty list: it is also the first
+    struct node *current = *head;
+    while (current-&gt;next != NULL)                        // walk to the LAST node
+        current = current-&gt;next;
+    current-&gt;next = newNode;                             // attach after it
+}
+
+void insertAfter(struct node **head, int afterID, int newID, int severity) { // O(n)
+    struct node *current = *head;
+    while (current != NULL &amp;&amp; current-&gt;eventID != afterID) // find afterID
+        current = current-&gt;next;
+    if (current == NULL) { printf("Event %d not found\n", afterID); return; }
+    struct node *newNode = malloc(sizeof(struct node));
+    if (newNode == NULL) return;
+    newNode-&gt;eventID = newID;
+    newNode-&gt;severity = severity;
+    newNode-&gt;next = current-&gt;next;                       // 1. grab the successor
+    current-&gt;next = newNode;                             // 2. predecessor points to new node
+}
+
+/* ---------- TRAVERSALS ---------- */
+void display(struct node *head) {                                  // O(n)
+    struct node *current = head;
+    while (current != NULL) {
+        printf("ID: %d | Severity: %d\n", current-&gt;eventID, current-&gt;severity);
+        current = current-&gt;next;                         // next node
+    }
+}
+
+int countNodes(struct node *head) {                                // O(n)
+    int count = 0;
+    struct node *current = head;
+    while (current != NULL) {
+        count++;
+        current = current-&gt;next;
+    }
+    return count;
+}
+
+/* ---------- DELETIONS ---------- */
+void deleteBeginning(struct node **head) {                         // O(1)
+    if (*head == NULL) { printf("List is empty\n"); return; }
+    struct node *temp = *head;                           // remember victim
+    *head = (*head)-&gt;next;                               // move head forward
+    free(temp);                                          // release victim
+}
+
+void deleteEnd(struct node **head) {                               // O(n)
+    if (*head == NULL) { printf("List is empty\n"); return; }
+    if ((*head)-&gt;next == NULL) { free(*head); *head = NULL; return; } // single node
+    struct node *previous = NULL, *current = *head;
+    while (current-&gt;next != NULL) {                      // stop on the last node
+        previous = current;
+        current = current-&gt;next;
+    }
+    previous-&gt;next = NULL;                               // new end
+    free(current);
+}
+
+void deleteByID(struct node **head, int id) {                      // O(n)
+    struct node *previous = NULL, *current = *head;
+    while (current != NULL &amp;&amp; current-&gt;eventID != id) {
+        previous = current;
+        current = current-&gt;next;
+    }
+    if (current == NULL) { printf("Event %d not found\n", id); return; }
+    if (previous == NULL) *head = current-&gt;next;         // deleting the first node
+    else previous-&gt;next = current-&gt;next;                 // bypass the node
+    free(current);
+}
+
+void freeList(struct node **head) {                                // O(n): no leaks at exit
+    struct node *current = *head;
+    while (current != NULL) {
+        struct node *nextNode = current-&gt;next;           // save next BEFORE freeing
+        free(current);
+        current = nextNode;
+    }
+    *head = NULL;
+}
+
+/* ---------- FINAL PROGRAM TEST ---------- */
+int main(void) {
+    struct node *head = NULL;                // empty list
+
+    insertEnd(&amp;head, 101, 5);                // 101
+    insertEnd(&amp;head, 102, 3);                // 101 -&gt; 102
+    insertEnd(&amp;head, 103, 4);                // 101 -&gt; 102 -&gt; 103
+    insertBeginning(&amp;head, 100, 5);          // 100 -&gt; 101 -&gt; 102 -&gt; 103
+    insertAfter(&amp;head, 101, 150, 2);         // 100 -&gt; 101 -&gt; 150 -&gt; 102 -&gt; 103
+
+    display(head);
+    printf("Count: %d\n", countNodes(head)); // Count: 5
+
+    deleteBeginning(&amp;head);                  // 101 -&gt; 150 -&gt; 102 -&gt; 103
+    deleteEnd(&amp;head);                        // 101 -&gt; 150 -&gt; 102
+    deleteByID(&amp;head, 150);                  // 101 -&gt; 102
+
+    display(head);
+    printf("Count: %d\n", countNodes(head)); // Count: 2
+
+    freeList(&amp;head);                         // release everything
+    return 0;
+}</code></pre>
+        <p><strong>Expected output:</strong></p>
+<pre><code>ID: 100 | Severity: 5
+ID: 101 | Severity: 5
+ID: 150 | Severity: 2
+ID: 102 | Severity: 3
+ID: 103 | Severity: 4
+Count: 5
+ID: 101 | Severity: 5
+ID: 102 | Severity: 3
+Count: 2</code></pre>
+        <p>Compile with <code>gcc -Wall -o lab01 lab01.c</code>, then run <code>./lab01</code>.</p>
+      </div>
+    </div>
+    <div class="callout tip" data-t="Level recap"><p>Remember the victim → unlink → free → (NULL). Always handle: empty, one node, first node, general. Delete first O(1), delete last O(n), delete by ID O(n).</p></div>
+  </article>
+
+  <article id="lvl-10" data-kicker="Level 10" data-title="Bonus Worlds: Doubly and Circular Linked Lists" data-meta="+300 XP · about 60 minutes · Chapter 2, end · whiteboard sessions" data-xp="300">
+    <p class="lead">Two upgrades to the singly list. Doubly lists can walk backwards; circular lists have no end. Same ideas as before, just more pointers to fix.</p>
+
+    <h3>1 · The Concept (explain like I'm 5)</h3>
+    <div class="callout" data-t="Analogy: the doubly list is a train"><p>A singly list is a line of people holding the shoulder in front: you can only go forward. A <strong>doubly linked list</strong> is a train where every wagon is coupled to the wagon in front (<code>next</code>) <em>and</em> the wagon behind (<code>prev</code>). You can walk both ways, and any wagon knows its neighbours. The cost: every insertion or deletion has to fix <strong>both</strong> couplings.</p></div>
+    <div class="callout" data-t="Analogy: the circular list is a round table"><p>A <strong>circular list</strong> is King Arthur's round table: after the last knight comes the first again. There is no NULL. Instead of a head we keep a pointer to the <strong>last</strong> knight, because from the last you reach the first in one step (<code>last-&gt;next</code>). So you can add someone at the front <em>or</em> the back in O(1) without walking around the table.</p></div>
+
+<pre><code>DOUBLY:    NULL &lt;- [prev| 4 |next] &lt;-&gt; [prev| 5 |next] &lt;-&gt; [prev| 6 |next] -&gt; NULL
+                    ^head
+
+CIRCULAR:  +--&gt; [10|next] --&gt; [3|next] --&gt; [8|next] --+
+           |                                 ^last    |
+           +------------------------------------------+     last-&gt;next == first node</code></pre>
+
+    <h3>2 · The Syntax: doubly linked list (Chapter 2)</h3>
+<pre><code>struct Node {
+    int data;
+    struct Node *next;   // successor (NULL for the last node)
+    struct Node *prev;   // predecessor (NULL for the first node)
+};</code></pre>
+
+    <h3>3 · The Challenge: doubly linked list</h3>
+    <div class="ex">
+      <h3>Doubly · Insert at the front</h3>
+      <p>Write <code>insertFront(struct Node **head, int data)</code> for a doubly list. Example: 4 ⇄ 5 ⇄ 6, add 8 at the beginning.</p>
+      <div class="solution">
+<pre><code>void insertFront(struct Node **head, int data) {
+    struct Node *newNode = malloc(sizeof(struct Node)); // step 1: rent a node
+    if (newNode == NULL) return;
+    newNode-&gt;data = data;                  //          and fill it
+
+    newNode-&gt;next = *head;                 // step 2: new -&gt; old first (or NULL if empty)
+    newNode-&gt;prev = NULL;                  //         nothing before the first node
+
+    if (*head != NULL)                     // step 3: if there was an old first node...
+        (*head)-&gt;prev = newNode;           //         ...its prev now points back to new
+
+    *head = newNode;                       //         head points to the new node
+}                                          // 8 &lt;-&gt; 4 &lt;-&gt; 5 &lt;-&gt; 6</code></pre>
+        <p><strong>O(1).</strong> Compared with singly, there's one extra line: fix the old head's <code>prev</code>, but only if it exists.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Doubly · Insert after a given node</h3>
+      <p>Write <code>insertAfter(struct Node *prev_node, int data)</code>. Example: insert 8 after the node holding 4. Four pointers must change. Which ones, and in what order?</p>
+      <div class="solution">
+<pre><code>void insertAfter(struct Node *prev_node, int data) {
+    if (prev_node == NULL) {                         // can't insert after nothing
+        printf("previous node cannot be NULL");
+        return;
+    }
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if (newNode == NULL) return;
+    newNode-&gt;data = data;
+
+    newNode-&gt;next = prev_node-&gt;next;   // (1) new -&gt; 5         (grab the successor first)
+    prev_node-&gt;next = newNode;         // (2) 4 -&gt; new
+    newNode-&gt;prev = prev_node;         // (3) 4 &lt;- new
+    if (newNode-&gt;next != NULL)         // (4) if a successor exists (not inserting at the end)...
+        newNode-&gt;next-&gt;prev = newNode; //     ...5's prev now points to new
+}                                      // 4 &lt;-&gt; 8 &lt;-&gt; 5 &lt;-&gt; 6</code></pre>
+        <p><strong>O(1)</strong> once you have the node: no traversal, because the node is given.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Doubly · Insert at the end, delete head, delete last</h3>
+      <p>Write <code>insertEnd</code>, <code>delete_head_node</code> and <code>deleteLast</code> for a doubly list.</p>
+      <div class="solution">
+<pre><code>void insertEnd(struct Node **head, int data) {           // O(n): walk to the end
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if (newNode == NULL) return;
+    newNode-&gt;data = data;
+    newNode-&gt;next = NULL;                  // it will be the last
+    if (*head == NULL) {                   // empty list: new node is everything
+        newNode-&gt;prev = NULL;
+        *head = newNode;
+        return;
+    }
+    struct Node *temp = *head;
+    while (temp-&gt;next != NULL)             // stop ON the last node
+        temp = temp-&gt;next;
+    temp-&gt;next = newNode;                  // old last -&gt; new
+    newNode-&gt;prev = temp;                  // old last &lt;- new
+}
+
+void delete_head_node(struct Node **head) {               // O(1)
+    if (*head == NULL) return;             // empty: nothing to do
+    struct Node *node_to_del = *head;      // remember the victim
+    *head = node_to_del-&gt;next;             // head moves to the 2nd node
+    if (*head != NULL)                     // if the list isn't now empty...
+        (*head)-&gt;prev = NULL;              // ...the new first node has no predecessor
+    free(node_to_del);
+}
+
+void deleteLast(struct Node **head) {                     // O(n): walk to the end
+    if (*head == NULL) return;
+    struct Node *temp = *head;
+    while (temp-&gt;next != NULL)             // go to the last node
+        temp = temp-&gt;next;
+    if (temp-&gt;prev == NULL)                // it was the only node
+        *head = NULL;
+    else
+        temp-&gt;prev-&gt;next = NULL;           // predecessor becomes the end: no need for "previous"!
+    free(temp);
+}</code></pre>
+        <p><strong>Doubly advantage:</strong> in <code>deleteLast</code> we don't need a trailing <code>previous</code> pointer, because <code>temp-&gt;prev</code> gives it for free. To delete a node you already hold (<code>deleteAfter</code>, or deleting the node itself), you just do <code>node-&gt;prev-&gt;next = node-&gt;next; node-&gt;next-&gt;prev = node-&gt;prev;</code> (checking each for NULL): <strong>O(1)</strong>.</p>
+      </div>
+    </div>
+
+    <h3>4 · The Syntax: circular singly list with a <code>last</code> pointer (whiteboard)</h3>
+    <p>Your whiteboard sessions all use a <code>last</code> pointer. Every function below returns the (possibly new) <code>last</code>, so you call it as <code>last = insertEnd(last, 11);</code>.</p>
+<pre><code>struct Node { int data; struct Node *next; };   // same node as a singly list
+
+void display(struct Node *last) {               // O(n)
+    if (last == NULL) { printf("List is empty\n"); return; }
+    struct Node *p = last-&gt;next;                // start at the FIRST node
+    do {                                        // do-while: process at least one node
+        printf("%d ", p-&gt;data);
+        p = p-&gt;next;
+    } while (p != last-&gt;next);                  // stop when we are back at the first node
+    printf("\n");
+}</code></pre>
+    <div class="callout warn" data-t="Circular trap"><p><code>while (p != NULL)</code> never stops on a circular list: there is no NULL! Stop when you come back to where you started. A plain <code>while (p != last-&gt;next)</code> loop with p starting at <code>last-&gt;next</code> would never run, which is why it's a <code>do…while</code>.</p></div>
+
+    <h3>5 · The Challenge: circular list</h3>
+    <div class="ex">
+      <h3>Whiteboard · Insert at the end (and at the beginning)</h3>
+      <figure class="wb"><img loading="lazy" alt="Whiteboard: circular list 10, 3, 8 with last on 8, inserting newNode 11 using newNode->next = last->next; last->next = newNode;" src="/.netlify/images?url=/img/whiteboard-circular-insert-end.jpeg&amp;w=720&amp;fm=webp" onerror="this.onerror=null;this.src='img/whiteboard-circular-insert-end.jpeg'"><figcaption>Your whiteboard: inserting 11 after <code>last</code> (8) in 10 → 3 → 8 → back to 10.</figcaption></figure>
+      <p>Complete the whiteboard code into full functions <code>insertEnd(last, data)</code> and <code>insertBeginning(last, data)</code>, including the empty-list case. What's the only difference between them?</p>
+      <div class="solution">
+<pre><code>struct Node *insertBeginning(struct Node *last, int data) {
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if (newNode == NULL) return last;
+    newNode-&gt;data = data;
+
+    if (last == NULL) {               // EMPTY list
+        newNode-&gt;next = newNode;      // a one-person round table: it points to itself
+        return newNode;               // it is the last (and the first)
+    }
+    newNode-&gt;next = last-&gt;next;       // new -&gt; old first      (whiteboard line 1)
+    last-&gt;next = newNode;             // last -&gt; new: new is now the FIRST (whiteboard line 2)
+    return last;                      // last doesn't change
+}
+
+struct Node *insertEnd(struct Node *last, int data) {
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if (newNode == NULL) return last;
+    newNode-&gt;data = data;
+
+    if (last == NULL) {               // EMPTY list
+        newNode-&gt;next = newNode;
+        return newNode;
+    }
+    newNode-&gt;next = last-&gt;next;       // new -&gt; first          (same two lines as above...)
+    last-&gt;next = newNode;             // old last -&gt; new
+    return newNode;                   // ...but now the NEW node is the last: last = newNode
+}
+
+// usage: last = insertEnd(last, 11);   10 -&gt; 3 -&gt; 8 -&gt; 11 -&gt; back to 10</code></pre>
+        <p><strong>The only difference:</strong> whether <code>last</code> moves to the new node. Both are <strong>O(1)</strong>, with no traversal at all. That's exactly why we keep <code>last</code> instead of <code>head</code>: <code>last-&gt;next</code> gives the first node instantly, so both ends are one step away.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Whiteboard · Delete the first node</h3>
+      <figure class="wb"><img loading="lazy" alt="Whiteboard: struct Node *target = last->next; last->next = target->next; free(target); target = NULL;" src="/.netlify/images?url=/img/whiteboard-circular-delete-first.jpeg&amp;w=720&amp;fm=webp" onerror="this.onerror=null;this.src='img/whiteboard-circular-delete-first.jpeg'"><figcaption>Your whiteboard: <code>target = last-&gt;next</code>, the first node.</figcaption></figure>
+      <p>Turn the whiteboard lines into a safe function that also handles an empty list and a one-node list.</p>
+      <div class="solution">
+<pre><code>struct Node *deleteFirst(struct Node *last) {
+    if (last == NULL) {                       // empty list
+        printf("List is empty\n");
+        return NULL;
+    }
+    struct Node *target = last-&gt;next;         // the first node (whiteboard)
+    if (target == last) {                     // ONE node: it points to itself
+        free(target);
+        return NULL;                          // the list becomes empty
+    }
+    last-&gt;next = target-&gt;next;                // last now skips the first node (whiteboard)
+    free(target);                             // release it (whiteboard)
+    target = NULL;                            // no dangling pointer (whiteboard)
+    return last;                              // last unchanged
+}</code></pre>
+        <p><strong>O(1).</strong> Forgetting the one-node case is the classic bug: <code>last-&gt;next = target-&gt;next</code> would make last point to itself after it was freed.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Whiteboard · Delete the last node</h3>
+      <figure class="wb"><img loading="lazy" alt="Whiteboard: struct Node *temp = last->next; while(temp->next != last) temp = temp->next; struct Node *temp2 = last; last = temp; temp->next = temp2->next; free(temp2); temp2 = NULL;" src="/.netlify/images?url=/img/whiteboard-circular-delete-last.jpeg&amp;w=720&amp;fm=webp" onerror="this.onerror=null;this.src='img/whiteboard-circular-delete-last.jpeg'"><figcaption>Your whiteboard: walking <code>temp</code> to the node just before <code>last</code> in 3 → 1 → 5.</figcaption></figure>
+      <p>Explain every whiteboard line, add the edge cases, and give the complexity.</p>
+      <div class="solution">
+<pre><code>struct Node *deleteLast(struct Node *last) {
+    if (last == NULL) return NULL;            // empty list
+    if (last-&gt;next == last) {                 // one node
+        free(last);
+        return NULL;
+    }
+    struct Node *temp = last-&gt;next;           // start at the first node (3)
+    while (temp-&gt;next != last)                // walk until temp is the node BEFORE last
+        temp = temp-&gt;next;                    // 3 -&gt; 1   (stop: 1-&gt;next is last)
+
+    struct Node *temp2 = last;                // remember the victim (5)
+    last = temp;                              // 1 becomes the new last
+    temp-&gt;next = temp2-&gt;next;                 // new last points to the first node (3): circle closed
+    free(temp2);                              // release 5
+    temp2 = NULL;                             // no dangling pointer
+    return last;
+}</code></pre>
+        <p><strong>O(n)</strong>: even with <code>last</code>, we need its <em>predecessor</em>, and a singly circular list can only reach it by going all the way round. (A <em>doubly</em> circular list would do it in O(1) via <code>last-&gt;prev</code>.)</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Whiteboard · Delete in between (after <code>prevNode</code>)</h3>
+      <figure class="wb"><img loading="lazy" alt="Whiteboard: struct Node* temp = prevNode->next; prevNode->next = temp->next; free(temp); temp = NULL;" src="/.netlify/images?url=/img/whiteboard-circular-delete-after.jpeg&amp;w=720&amp;fm=webp" onerror="this.onerror=null;this.src='img/whiteboard-circular-delete-after.jpeg'"><figcaption>Your whiteboard: deleting the node after <code>prevNode</code> (3) in 3 → 1 → 5.</figcaption></figure>
+      <p>Write <code>deleteAfter(last, prevNode)</code>. Which extra case appears in a circular list?</p>
+      <div class="solution">
+<pre><code>struct Node *deleteAfter(struct Node *last, struct Node *prevNode) {
+    if (last == NULL || prevNode == NULL) return last;
+    struct Node *temp = prevNode-&gt;next;       // the victim (1)  (whiteboard)
+    if (temp == prevNode) {                   // single node pointing to itself
+        free(temp);
+        return NULL;
+    }
+    prevNode-&gt;next = temp-&gt;next;              // 3 -&gt; 5: bypass the victim (whiteboard)
+    if (temp == last)                         // EXTRA CASE: we deleted the last node...
+        last = prevNode;                      // ...so prevNode becomes the new last
+    free(temp);                               // (whiteboard)
+    temp = NULL;                              // (whiteboard)
+    return last;
+}</code></pre>
+        <p><strong>O(1)</strong> once you have prevNode (O(n) if you first have to search for it). The extra case: if the victim was <code>last</code>, the <code>last</code> pointer must move, otherwise it dangles.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Lecture question · Insert in between "at position 3"</h3>
+      <p>In the circular list 10 → 3 → 8 (last = 8), insert 7 so that it becomes the 3rd element. Write <code>insertAtPosition(last, data, pos)</code>.</p>
+      <div class="solution">
+<pre><code>struct Node *insertAtPosition(struct Node *last, int data, int pos) {
+    if (last == NULL || pos == 1)                 // empty or front: reuse the O(1) function
+        return insertBeginning(last, data);
+
+    struct Node *p = last-&gt;next;                  // p = 1st node (10)
+    for (int i = 1; i &lt; pos - 1; i++) {           // move to node number pos-1 (here the 2nd: 3)
+        p = p-&gt;next;
+        if (p == last-&gt;next) return last;         // went all the way round: position too large
+    }
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if (newNode == NULL) return last;
+    newNode-&gt;data = data;
+    newNode-&gt;next = p-&gt;next;                      // 7 -&gt; 8
+    p-&gt;next = newNode;                            // 3 -&gt; 7
+    if (p == last)                                // inserted after the last node?
+        last = newNode;                           // then the new node is the new last
+    return last;                                  // 10 -&gt; 3 -&gt; 7 -&gt; 8 -&gt; back to 10
+}</code></pre>
+        <p><strong>O(n)</strong> because of the walk to position pos − 1.</p>
+      </div>
+    </div>
+
+    <h3>Complexity summary of all list types</h3>
+    <div class="tw"><table><thead><tr><th>Operation</th><th>Singly (head)</th><th>Doubly (head)</th><th>Circular singly (last)</th></tr></thead><tbody>
+      <tr><td>Insert at beginning</td><td>O(1)</td><td>O(1)</td><td>O(1)</td></tr>
+      <tr><td>Insert at end</td><td>O(n)</td><td>O(n)</td><td><strong>O(1)</strong></td></tr>
+      <tr><td>Delete first</td><td>O(1)</td><td>O(1)</td><td>O(1)</td></tr>
+      <tr><td>Delete last</td><td>O(n)</td><td>O(n)</td><td>O(n)</td></tr>
+      <tr><td>Delete a node you hold</td><td>O(n) (need its predecessor)</td><td><strong>O(1)</strong></td><td>O(n)</td></tr>
+      <tr><td>Traverse / search</td><td>O(n)</td><td>O(n), both directions</td><td>O(n), do-while</td></tr>
+      <tr><td>Extra memory per node</td><td>1 pointer</td><td>2 pointers</td><td>1 pointer</td></tr>
+    </tbody></table></div>
+    <div class="callout tip" data-t="Level recap"><p>Doubly = fix <code>next</code> AND <code>prev</code>, and check for NULL neighbours. Circular = no NULL, keep <code>last</code>, loop with do-while, and watch the one-node case (a node pointing to itself) and the "deleted the last node" case. World 2 cleared. Time for the Final Boss. ⚔️</p></div>
+    <p><a class="go" href="#boss-1">Face the Final Boss →</a></p>
+  </article>
+</section>
+
+<!-- ============ BOSS ARENA ============ -->
+<section class="view" id="bosses" data-a="3" data-title="Boss Arena · Mock Exams" data-unit="boss fight" data-desc="Two full mock exams out of 20 that mix theory, complexity proofs and C coding. Answers and marking tips stay hidden until you've tried.">
+
+  <article id="boss-1" data-kicker="Final Boss · Phase 1" data-title="Mock Exam 1: The Complexity Golem" data-meta="+500 XP · 90 minutes · 20 points" data-xp="500">
+    <p class="lead">Exam conditions: no notes, a sheet of paper, a pen, and a timer. Write full answers, then check them and mark yourself honestly with the marking tips.</p>
+    <div class="timer" data-min="90"></div>
+
+    <div class="ex">
+      <h3>Multiple choice <span class="pts">4 pts</span></h3>
+      <p><strong>Q1.</strong> The cost of reading the k-th element of a singly linked list of n nodes (worst case) is:</p>
+      <ul class="opts quiz"><li>A. O(1)</li><li>B. O(log n)</li><li data-ok>C. O(n)</li><li>D. O(n²)</li></ul>
+      <p><strong>Q2.</strong> After <code>int x = 5; int *p = &amp;x; *p = *p * 2;</code>, the value of <code>x</code> is:</p>
+      <ul class="opts quiz"><li>A. 5</li><li data-ok>B. 10</li><li>C. the address of x times 2</li><li>D. compile error</li></ul>
+      <p><strong>Q3.</strong> The loop <code>for (i = n; i &gt; 0; i /= 3)</code> runs:</p>
+      <ul class="opts quiz"><li>A. Θ(n/3) times</li><li data-ok>B. Θ(log n) times</li><li>C. Θ(n) times</li><li>D. Θ(√n) times</li></ul>
+      <p><strong>Q4.</strong> Which statement is FALSE?</p>
+      <ul class="opts quiz"><li>A. n ∈ O(n²)</li><li>B. log₂ n ∈ Θ(log₁₀ n)</li><li data-ok>C. 3ⁿ ∈ Θ(2ⁿ)</li><li>D. n² ∈ o(n³)</li></ul>
+      <div class="solution" data-label="answer">
+        <p><strong>Q1 C</strong>: you have to follow k pointers from head. <strong>Q2 B</strong>: <code>*p</code> is x, so x = 5 × 2. <strong>Q3 B</strong>: dividing by 3 each step gives log₃ n + 1 iterations. <strong>Q4 C</strong>: 3ⁿ/2ⁿ = 1.5ⁿ → ∞, not a constant, so they're not in the same class (the exponential base matters).</p>
+        <p><strong>Marking:</strong> 1 pt each, no partial credit.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Formal proof <span class="pts">3 pts</span></h3>
+      <p>Using the definitions, prove that f(n) = 3n² + 5n + 7 ∈ Θ(n²). Give explicit constants c₁, c₂, n₀.</p>
+      <div class="solution" data-label="answer">
+        <p><strong>Lower bound (Ω):</strong> for n ≥ 1, 5n + 7 &gt; 0, so f(n) ≥ 3n². Take c₁ = 3.</p>
+        <p><strong>Upper bound (O):</strong> for n ≥ 1, 5n ≤ 5n² and 7 ≤ 7n², so f(n) ≤ 3n² + 5n² + 7n² = 15n². Take c₂ = 15.</p>
+        <p><strong>Conclusion:</strong> 3n² ≤ f(n) ≤ 15n² for all n ≥ n₀ = 1, hence f(n) ∈ Θ(n²). ∎</p>
+        <p><strong>Marking:</strong> 1 pt lower bound, 1 pt upper bound, 1 pt for explicit constants + conclusion. Writing only "the dominant term is 3n²" earns 0.5 at most: the question said <em>using the definitions</em>.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Loop analysis <span class="pts">4 pts</span></h3>
+      <p>Give the number of executions of <code>x++</code> (exact or tight) and the Θ class of each fragment.</p>
+<pre><code>// (a)  1 pt
+for (i = 1; i &lt;= n; i++)
+    for (j = 1; j &lt;= n; j *= 2)
+        x++;
+
+// (b)  1.5 pts
+for (i = 1; i &lt;= n; i++)
+    for (j = i; j &lt;= n; j++)
+        x++;
+
+// (c)  1.5 pts
+for (i = 1; i * i &lt;= n; i++)
+    x++;</code></pre>
+      <div class="solution" data-label="answer">
+        <p><strong>(a)</strong> The outer loop runs n times; the inner runs ⌊log₂ n⌋ + 1 times, independent of i. Total n(⌊log₂ n⌋ + 1) → <strong>Θ(n log n)</strong>.</p>
+        <p><strong>(b)</strong> For a given i, j goes from i to n: n − i + 1 iterations. T(n) = Σ<sub>i=1</sub><sup>n</sup> (n − i + 1) = n + (n−1) + … + 1 = <strong>n(n+1)/2 → Θ(n²)</strong>. (It's C4 in reverse.)</p>
+        <p><strong>(c)</strong> The loop runs while i² ≤ n, i.e. i ≤ √n: <strong>⌊√n⌋ iterations → Θ(√n)</strong>.</p>
+        <p><strong>Marking:</strong> half the points for the count/summation, half for the class.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Theory: arrays vs linked lists <span class="pts">3 pts</span></h3>
+      <p>(a) Give the worst-case complexity of these operations for an array and for a singly linked list (head pointer only): access by index, insertion at the beginning, insertion at the end, deletion at the beginning. (b) Explain in two sentences where each complexity difference comes from.</p>
+      <div class="solution" data-label="answer">
+        <div class="tw"><table><thead><tr><th>Operation</th><th>Array</th><th>Singly list</th></tr></thead><tbody>
+          <tr><td>Access by index</td><td>O(1)</td><td>O(n)</td></tr>
+          <tr><td>Insert at beginning</td><td>O(n)</td><td>O(1)</td></tr>
+          <tr><td>Insert at end</td><td>O(1) (if capacity)</td><td>O(n)</td></tr>
+          <tr><td>Delete at beginning</td><td>O(n)</td><td>O(1)</td></tr>
+        </tbody></table></div>
+        <p><strong>(b)</strong> An array is <strong>contiguous</strong>: an element's address is computed directly (start + i × size), but inserting or deleting away from the end <strong>shifts</strong> elements. A linked list is made of <strong>scattered nodes linked by pointers</strong>: changing the structure only <strong>relinks pointers</strong>, but reaching a position means <strong>traversing</strong> from the head.</p>
+        <p><strong>Marking:</strong> 2 pts for the table (0.25 per cell), 1 pt for the explanation (it must mention contiguity/shifting and traversal/relinking).</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>C programming <span class="pts">6 pts</span></h3>
+      <p>Use <code>struct node { int eventID; int severity; struct node *next; };</code> and the lab functions.</p>
+      <p><strong>(a) 2 pts:</strong> What does this program display, and what does <code>countNodes</code> return?</p>
+<pre><code>struct node *head = NULL;
+insertBeginning(&amp;head, 1, 0);
+insertEnd(&amp;head, 2, 0);
+insertBeginning(&amp;head, 3, 0);
+insertAfter(&amp;head, 1, 4, 0);
+deleteEnd(&amp;head);
+deleteBeginning(&amp;head);
+display(head);</code></pre>
+      <p><strong>(b) 4 pts:</strong> Write <code>void insertSorted(struct node **head, int id, int severity)</code>, which inserts a new event so that the list stays sorted by increasing <code>eventID</code>. Handle every case and give the complexity.</p>
+      <div class="solution" data-label="answer">
+        <p><strong>(a)</strong> Trace: [1] → [1, 2] → [3, 1, 2] → after 1 insert 4: [3, 1, 4, 2] → delete end: [3, 1, 4] → delete beginning: <strong>[1, 4]</strong>. Display prints <code>ID: 1 | Severity: 0</code> then <code>ID: 4 | Severity: 0</code>. countNodes returns <strong>2</strong>.</p>
+        <p><strong>(b)</strong></p>
+<pre><code>void insertSorted(struct node **head, int id, int severity) {
+    struct node *newNode = malloc(sizeof(struct node));   // rent a node
+    if (newNode == NULL) return;                          // allocation check (0.5 pt)
+    newNode-&gt;eventID = id;
+    newNode-&gt;severity = severity;
+
+    // CASE 1: empty list OR new ID smaller than the first -&gt; becomes the new head (1 pt)
+    if (*head == NULL || id &lt; (*head)-&gt;eventID) {
+        newNode-&gt;next = *head;
+        *head = newNode;
+        return;
+    }
+
+    // CASE 2: find the last node whose successor is &gt;= id (1.5 pts)
+    struct node *current = *head;
+    while (current-&gt;next != NULL &amp;&amp; current-&gt;next-&gt;eventID &lt; id)
+        current = current-&gt;next;
+
+    // insert after current (works in the middle AND at the end) (1 pt)
+    newNode-&gt;next = current-&gt;next;   // grab the successor first
+    current-&gt;next = newNode;         // then link current to the new node
+}</code></pre>
+        <p><strong>Complexity:</strong> O(1) best case (insert at the head), <strong>O(n) worst case</strong> (insert at the end).</p>
+        <p><strong>Marking:</strong> −1 if <code>**head</code> isn't used (the head change would be lost), −1 if the two relink lines are swapped, −0.5 if the empty list crashes.</p>
+      </div>
+    </div>
+  </article>
+
+  <article id="boss-2" data-kicker="Final Boss · Phase 2" data-title="Mock Exam 2: The Pointer Hydra" data-meta="+600 XP · 90 minutes · 20 points" data-xp="600">
+    <p class="lead">Harder than Phase 1. If you score 16+ here, you're ready for 20/20.</p>
+    <div class="timer" data-min="90"></div>
+
+    <div class="ex">
+      <h3>True or false, with justification <span class="pts">4 pts</span></h3>
+      <ol type="a"><li>n log n ∈ O(n²)</li><li>2ⁿ⁺¹ ∈ Θ(2ⁿ)</li><li>2²ⁿ ∈ Θ(2ⁿ)</li><li>n! ∈ O(nⁿ)</li></ol>
+      <div class="solution" data-label="answer">
+        <ol type="a">
+          <li><strong>True.</strong> log n ≤ n for n ≥ 1, so n log n ≤ n·n = n² (c = 1, n₀ = 1).</li>
+          <li><strong>True.</strong> 2ⁿ⁺¹ = 2·2ⁿ, a constant multiple (c₁ = c₂ = 2).</li>
+          <li><strong>False.</strong> 2²ⁿ = 4ⁿ, and 4ⁿ/2ⁿ = 2ⁿ → ∞, so no constant c works. A constant in the <em>exponent</em> matters!</li>
+          <li><strong>True.</strong> n! = 1·2·…·n ≤ n·n·…·n = nⁿ (c = 1, n₀ = 1).</li>
+        </ol>
+        <p><strong>Marking:</strong> 0.5 for the right verdict, 0.5 for the justification.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Exact counting <span class="pts">4 pts</span></h3>
+<pre><code>// (a)  2 pts: exact count and Theta
+for (i = 1; i &lt;= n; i++)
+    for (j = 1; j &lt;= i; j++)
+        for (k = 1; k &lt;= n; k++)
+            count++;
+
+// (b)  2 pts: tight bound (n is a power of 2)
+for (i = n; i &gt;= 1; i /= 2)
+    for (j = 1; j &lt;= i; j++)
+        count++;</code></pre>
+      <div class="solution" data-label="answer">
+        <p><strong>(a)</strong> The k loop is independent: n per (i, j). T(n) = Σ<sub>i=1</sub><sup>n</sup> Σ<sub>j=1</sub><sup>i</sup> n = n · Σ i = <strong>n · n(n+1)/2 = (n³ + n²)/2 → Θ(n³)</strong>.</p>
+        <p><strong>(b)</strong> The inner work is i, for i = n, n/2, n/4, …, 1. T(n) = n + n/2 + n/4 + … + 1 = 2n − 1 (geometric series) → <strong>Θ(n)</strong>. It's the same trap as TD D1: "log n × n" is only an upper bound.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Find the bug <span class="pts">3 pts</span></h3>
+<pre><code>void push(struct node *head, int id) {
+    struct node *n = malloc(sizeof(struct node));
+    n-&gt;eventID = id;
+    n-&gt;severity = 0;
+    n-&gt;next = head;
+    head = n;
+}
+
+int main(void) {
+    struct node *head = NULL;
+    push(head, 1);
+    push(head, 2);
+    printf("%d\n", countNodes(head));
+    return 0;
+}</code></pre>
+      <p>(a) What is printed? (b) Explain why, using the vocabulary of pass by value. (c) Fix the function and the calls. (d) Name a second problem in <code>push</code>.</p>
+      <div class="solution" data-label="answer">
+        <p><strong>(a)</strong> <code>0</code>.</p>
+        <p><strong>(b)</strong> <code>head</code> is passed <strong>by value</strong>: <code>push</code> receives a <em>copy</em> of the pointer (NULL). <code>head = n</code> only changes that local copy, which is destroyed on return. Main's <code>head</code> stays NULL, and both nodes are unreachable: a <strong>memory leak</strong>.</p>
+        <p><strong>(c)</strong></p>
+<pre><code>void push(struct node **head, int id) {   // receive the ADDRESS of main's head
+    struct node *n = malloc(sizeof(struct node));
+    if (n == NULL) return;                 // (d) the missing malloc check
+    n-&gt;eventID = id;
+    n-&gt;severity = 0;
+    n-&gt;next = *head;                       // the current first node
+    *head = n;                             // modifies main's head through its address
+}
+// calls: push(&amp;head, 1); push(&amp;head, 2);   -&gt; countNodes returns 2</code></pre>
+        <p><strong>(d)</strong> No check that <code>malloc</code> returned NULL (that would crash on <code>n-&gt;eventID</code>), and nothing frees the list at the end of main.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Write it from scratch: reverse a list <span class="pts">5 pts</span></h3>
+      <p>Write <code>void reverse(struct node **head)</code>, which reverses a singly linked list <strong>in place</strong> (no new nodes, no array). 101 → 102 → 103 becomes 103 → 102 → 101. Give its time and extra-space complexity.</p>
+      <div class="solution" data-label="answer">
+<pre><code>void reverse(struct node **head) {
+    struct node *prev = NULL;        // the reversed part so far (initially empty)
+    struct node *current = *head;    // the node we are turning around
+    struct node *next = NULL;        // a bookmark so we don't lose the rest of the list
+
+    while (current != NULL) {
+        next = current-&gt;next;        // 1. bookmark the rest of the list
+        current-&gt;next = prev;        // 2. turn this node's arrow backwards
+        prev = current;              // 3. the reversed part now starts at current
+        current = next;              // 4. move on to the bookmarked rest
+    }
+    *head = prev;                    // prev is the old last node = the new first node
+}</code></pre>
+<pre><code>start:   prev=NULL   current=101 -&gt; 102 -&gt; 103 -&gt; NULL
+step 1:  NULL &lt;- 101   prev=101   current=102 -&gt; 103
+step 2:  NULL &lt;- 101 &lt;- 102   prev=102   current=103
+step 3:  NULL &lt;- 101 &lt;- 102 &lt;- 103   prev=103   current=NULL  -&gt; stop, head = 103</code></pre>
+        <p><strong>Time O(n)</strong> (each node is visited once), <strong>extra space O(1)</strong> (three pointers). Works for empty and one-node lists with no special case.</p>
+        <p><strong>Marking:</strong> 1 pt for the bookmark of next, 1.5 for the arrow reversal, 1 for the loop/advance, 0.5 for updating <code>*head</code>, 1 for the complexity.</p>
+      </div>
+    </div>
+
+    <div class="ex">
+      <h3>Advanced lists <span class="pts">4 pts</span></h3>
+      <p>(a) 2 pts: Write <code>int countCircular(struct Node *last)</code> for a circular singly list referenced by its last node, and explain why <code>while (p != NULL)</code> can't be used.</p>
+      <p>(b) 2 pts: In a doubly linked list, write <code>void deleteNode(struct Node **head, struct Node *del)</code>, which deletes the node <code>del</code> that you already hold. What is its complexity, and why is it better than in a singly list?</p>
+      <div class="solution" data-label="answer">
+<pre><code>int countCircular(struct Node *last) {
+    if (last == NULL) return 0;          // empty list
+    int count = 0;
+    struct Node *p = last-&gt;next;         // first node
+    do {
+        count++;
+        p = p-&gt;next;
+    } while (p != last-&gt;next);           // back at the first node: one full lap done
+    return count;
+}</code></pre>
+        <p>A circular list has <strong>no NULL</strong>: the last node points back to the first, so <code>p != NULL</code> stays true forever (an infinite loop). We stop when we return to the starting node.</p>
+<pre><code>void deleteNode(struct Node **head, struct Node *del) {
+    if (*head == NULL || del == NULL) return;
+    if (*head == del)                    // deleting the first node
+        *head = del-&gt;next;               //   head moves forward
+    if (del-&gt;next != NULL)               // there is a successor
+        del-&gt;next-&gt;prev = del-&gt;prev;     //   successor skips back over del
+    if (del-&gt;prev != NULL)               // there is a predecessor
+        del-&gt;prev-&gt;next = del-&gt;next;     //   predecessor skips forward over del
+    free(del);
+}</code></pre>
+        <p><strong>O(1)</strong>: <code>del-&gt;prev</code> gives the predecessor directly. In a singly list you'd have to traverse from the head to find the predecessor: O(n).</p>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ CHEAT CODES ============ -->
+<section class="view" id="cheats" data-a="4" data-title="Cheat Codes · Revision Sheets" data-unit="sheet" data-desc="Everything on three pages for the night before and the morning of the exam.">
+
+  <article id="cheat-1" data-kicker="Cheat Code 1" data-title="Complexity on One Page" data-meta="5-minute read">
+    <div class="formula">1 &lt; log n &lt; √n &lt; n &lt; n log n &lt; n² &lt; n³ &lt; 2ⁿ &lt; 3ⁿ &lt; n! &lt; nⁿ</div>
+    <h3>Definitions</h3>
+    <ul>
+      <li><strong>O</strong>: f ≤ c·g for n ≥ n₀ (ceiling, worst case). <strong>Ω</strong>: f ≥ c·g (floor). <strong>Θ</strong>: c₁g ≤ f ≤ c₂g (sandwich).</li>
+      <li><strong>o</strong>: lim f/g = 0 (strictly slower). <strong>ω</strong>: lim f/g = ∞ (strictly faster).</li>
+      <li>Proof recipe: write the inequality → bulldoze lower terms up to the top power (n ≥ 1) → read off c → state n₀ → conclude.</li>
+      <li>The log base doesn't matter (constant factor). The exponential base <em>does</em> (2ⁿ ≠ 3ⁿ, 2²ⁿ = 4ⁿ ≠ 2ⁿ, but 2ⁿ⁺¹ = 2·2ⁿ ✓).</li>
+    </ul>
+    <h3>Loop patterns</h3>
+    <div class="tw"><table><thead><tr><th>Code</th><th>Count</th><th>Θ</th></tr></thead><tbody>
+      <tr><td><code>i++</code> up to n</td><td>n</td><td>n</td></tr>
+      <tr><td><code>i += k</code></td><td>⌈n/k⌉</td><td>n</td></tr>
+      <tr><td><code>i *= k</code> or <code>i /= k</code></td><td>⌊log_k n⌋ + 1</td><td>log n</td></tr>
+      <tr><td><code>i * i &lt;= n</code></td><td>⌊√n⌋</td><td>√n</td></tr>
+      <tr><td>i from n/2 to n</td><td>≈ n/2</td><td>n</td></tr>
+      <tr><td>nested n × n</td><td>n²</td><td>n²</td></tr>
+      <tr><td>nested, <code>j &lt;= i</code></td><td>n(n+1)/2</td><td>n²</td></tr>
+      <tr><td>outer <code>i *= 2</code>, inner <code>j &lt; i</code></td><td>1 + 2 + 4 + … ≤ 2n</td><td><strong>n</strong> (not n log n!)</td></tr>
+      <tr><td>outer n, inner <code>j *= 2</code> up to i</td><td>Σ(⌊log i⌋ + 1)</td><td>n log n</td></tr>
+      <tr><td>three nested, <code>k &lt;= j &lt;= i</code></td><td>n(n+1)(n+2)/6</td><td>n³</td></tr>
+    </tbody></table></div>
+    <h3>Summation formulas</h3>
+    <ul><li>Σ 1 = n · Σ i = n(n+1)/2 · Σ i² = n(n+1)(2n+1)/6</li><li>Σ<sub>k=0</sub><sup>m</sup> 2ᵏ = 2ᵐ⁺¹ − 1 ≈ 2 × the last term · Σ log i = Θ(n log n)</li></ul>
+    <h3>Combination rules</h3>
+    <ul><li>Consecutive → <strong>add</strong>, keep the max. Nested → <strong>multiply</strong> (or Σ if dependent). if/else → test + <strong>max</strong>(branches).</li><li>Exact count: a loop test runs <strong>n + 1</strong> times. Primitive model: count every operator. Statement model: count every statement.</li></ul>
+    <div class="callout warn" data-t="Traps seen in this course"><p><code>break</code> in the inner loop (O(n), not n²) · missing braces and misleading indentation · a bound of <code>n * n</code> (→ n⁴ with a dependent inner loop) · <code>(6n⁵+3)/n⁴</code> is only O(n) · a starting value of n/2 is still linear.</p></div>
+  </article>
+
+  <article id="cheat-2" data-kicker="Cheat Code 2" data-title="Pointers and Linked Lists on One Page" data-meta="5-minute read">
+    <h3>Pointer vocabulary</h3>
+    <div class="tw"><table><tbody>
+      <tr><td><code>int *p = &amp;x;</code></td><td>p holds x's address</td></tr>
+      <tr><td><code>*p = 8;</code></td><td>writes 8 into x</td></tr>
+      <tr><td><code>s.f</code> / <code>p-&gt;f</code></td><td>field of a struct / of a pointed struct; <code>p-&gt;f == (*p).f</code></td></tr>
+      <tr><td><code>malloc(sizeof(struct node))</code></td><td>heap memory, or NULL. Always check!</td></tr>
+      <tr><td><code>free(p); p = NULL;</code></td><td>give it back, avoid a dangling pointer</td></tr>
+      <tr><td><code>struct node **head</code></td><td>needed when the function changes main's head; call with <code>&amp;head</code></td></tr>
+    </tbody></table></div>
+    <h3>The operations in three lines each</h3>
+<pre><code>TRAVERSE     cur = head; while (cur != NULL) { ...; cur = cur-&gt;next; }               O(n)
+INS. BEGIN   n-&gt;next = *head; *head = n;                                             O(1)
+INS. END     n-&gt;next = NULL; if (!*head) { *head = n; return; }
+             walk while (cur-&gt;next != NULL); cur-&gt;next = n;                          O(n)
+INS. AFTER X find X; n-&gt;next = X-&gt;next; X-&gt;next = n;                                 O(n)
+DEL. BEGIN   t = *head; *head = t-&gt;next; free(t);                                    O(1)
+DEL. END     1 node: free, *head = NULL; else walk prev/cur to the last;
+             prev-&gt;next = NULL; free(cur);                                           O(n)
+DEL. BY ID   walk prev/cur until found; first ? *head = cur-&gt;next
+                                               : prev-&gt;next = cur-&gt;next; free(cur);  O(n)
+REVERSE      while (cur) { nx = cur-&gt;next; cur-&gt;next = prev; prev = cur; cur = nx; } *head = prev;
+
+DOUBLY       also fix -&gt;prev; check neighbours for NULL; deleting a held node is O(1)
+CIRCULAR     keep last; first = last-&gt;next; empty: n-&gt;next = n;
+             ins. begin/end: n-&gt;next = last-&gt;next; last-&gt;next = n; (end: last = n)   O(1)
+             loop with do { } while (p != last-&gt;next);</code></pre>
+    <h3>Edge-case checklist (lose no points)</h3>
+    <ol><li>Empty list (<code>*head == NULL</code>)?</li><li>One node?</li><li>The target is the first node (head changes)?</li><li>The target is the last node / not found?</li><li>Did I check <code>malloc</code>? Did I <code>free</code> every deleted node?</li><li>Did I link <code>new-&gt;next</code> <strong>before</strong> redirecting the old pointer?</li><li>In <code>while (cur != NULL &amp;&amp; cur-&gt;id != x)</code>, is the NULL test <strong>first</strong>?</li></ol>
+  </article>
+
+  <article id="cheat-3" data-kicker="Cheat Code 3" data-title="Exam Game Plan: The 20/20 Checklist" data-meta="3-minute read">
+    <h3>The week before</h3>
+    <ul><li>Redo TD exercises C4, D1, F2 and G1 on paper without looking, then compare.</li><li>Rewrite <code>lab01.c</code> from a blank file in under 30 minutes. If you can, the coding part is safe.</li><li>Do both mock exams under time pressure.</li></ul>
+    <h3>During the exam</h3>
+    <ol>
+      <li><strong>Complexity questions:</strong> always show the steps: iteration count per loop → combination (sum/product/Σ) → closed form → Θ. A correct answer without steps loses points.</li>
+      <li><strong>Formal proofs:</strong> state the definition, give explicit c and n₀, write "for all n ≥ n₀", conclude with ∈.</li>
+      <li><strong>C code:</strong> start with the edge cases (empty, one node, first), then the general case. Comment your key lines: graders reward a clear intention even with a small syntax slip.</li>
+      <li><strong>Draw boxes and arrows</strong> before writing pointer code. Thirty seconds of drawing saves ten minutes of debugging in your head.</li>
+      <li><strong>Always state the complexity</strong> of any function you write, even if it isn't asked.</li>
+      <li><strong>Trace your code</strong> on a three-node example and on an empty list before moving on.</li>
+    </ol>
+    <div class="callout tip" data-t="What separates 16 from 20"><p>Edge cases in C (empty list, single node, head deletion), <em>tight</em> bounds (Θ, not just O, and spotting geometric series), and exact counts with the + 1 for loop tests. These are exactly the places where the TD and lab push you.</p></div>
+    <div class="callout" data-t="Coming next in the module"><p>The syllabus continues with stacks and queues (LIFO/FIFO, built on these exact lists), searching (binary search, BSTs), sorting (bubble → merge/quick/heap) and graphs (BFS, DFS, shortest paths). Everything you learned here, especially pointers and Θ analysis, is the foundation for those chapters.</p></div>
+  </article>
+</section>
+
+</main>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const mk=(t,c)=>{const e=document.createElement(t);e.className=c;return e};
+const arts=v=>[...v.children].filter(x=>x.tagName==='ARTICLE');
+const count=v=>{const n=arts(v).length;return n+' '+v.dataset.unit+(n===1?'':'s')};
+const views=$$('.view');
+let uid=0;
+
+/* 1. Build each article: header, solution toggles, previous/next */
+$$('.view>article').forEach(a=>{
+  const d=a.dataset;
+  a.insertAdjacentHTML('afterbegin',`<header class="ahead"><div><p class="kicker">${d.kicker}</p><h2>${d.title}</h2>${d.meta?`<p class="meta">${d.meta}</p>`:''}</div></header>`);
+  $$('.solution',a).forEach(s=>{
+    const b=mk('button','sol-btn'),w=mk('div','sol-wrap'),box=mk('div','sbody'),l=s.dataset.label||'solution';
+    s.id='sol-'+(++uid);b.type='button';b.dataset.l=l;
+    b.setAttribute('aria-controls',s.id);b.setAttribute('aria-expanded','false');b.textContent='Show '+l;
+    box.dataset.l=l[0].toUpperCase()+l.slice(1);
+    box.append(...s.childNodes);s.append(box);s.before(b);b.after(w);w.append(s);
+  });
+  if($('.sol-btn',a)){const r=mk('button','reveal');r.type='button';r.textContent='Show all';$('.ahead',a).append(r)}
+  const sib=arts(a.parentNode),k=sib.indexOf(a),p=sib[k-1],q=sib[k+1];
+  if(p||q)a.insertAdjacentHTML('beforeend',`<nav class="pager">${p?`<a href="#${p.id}">Previous: ${p.dataset.kicker}</a>`:''}${q?`<a class="nx" href="#${q.id}">Next: ${q.dataset.kicker}</a>`:''}</nav>`);
+});
+
+function set(b,open){
+  b.setAttribute('aria-expanded',open);
+  b.nextElementSibling.classList.toggle('open',open);
+  b.textContent=(open?'Hide ':'Show ')+b.dataset.l;
+  const a=b.closest('article'),r=$('.reveal',a);
+  if(r)r.textContent=$$('.sol-btn',a).every(x=>x.getAttribute('aria-expanded')==='true')?'Hide all':'Show all';
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.sol-btn'),r=e.target.closest('.reveal');
+  if(b)set(b,b.getAttribute('aria-expanded')!=='true');
+  if(r){const bs=$$('.sol-btn',r.closest('article')),open=bs.some(x=>x.getAttribute('aria-expanded')!=='true');bs.forEach(x=>set(x,open))}
+});
+
+/* 2. Build section index pages, home list and sidebar navigation */
+const row=(href,a,title,note,desc)=>`<a class="row" ${a?`data-a="${a}"`:''} href="#${href}"><b>${title}</b><span>${note}</span>${desc?`<small>${desc}</small>`:''}</a>`;
+views.forEach(v=>{
+  const idx=mk('div','index');
+  idx.innerHTML=`<h1>${v.dataset.title}</h1><p class="lead">${v.dataset.desc}</p><div class="rows">${arts(v).map(a=>row(a.id,'',`${a.dataset.kicker}: ${a.dataset.title}`,'',a.dataset.meta||'')).join('')}</div>`;
+  v.prepend(idx);
+});
+$('#homerows').innerHTML=views.map(v=>row(v.id,v.dataset.a,v.dataset.title,count(v),v.dataset.desc)).join('');
+$('.nav').innerHTML='<a href="#home"><span class="dot"></span>Home</a>'+views.map(v=>`<div class="grp" data-a="${v.dataset.a}" data-v="${v.id}"><a href="#${v.id}"><span class="dot"></span>${v.dataset.title}</a><div class="sub">${arts(v).map(a=>`<a href="#${a.id}" title="${a.dataset.title}">${a.dataset.kicker}: ${a.dataset.title}</a>`).join('')}</div></div>`).join('');
+
+/* 3. Router: one page at a time, driven by #id */
+const main=$('#main'),pages=[...main.children];
+function route(){
+  let el=document.getElementById(decodeURIComponent(location.hash.slice(1))||'home');
+  if(!el||!el.matches('#home,.view,.view>article'))el=$('#home');
+  const v=el.closest('main>*');
+  pages.forEach(p=>p.hidden=p!==v);
+  if(v.matches('.view')){const idx=$('.index',v);[...v.children].forEach(n=>n.hidden=n!==(el===v?idx:el))}
+  $$('.nav a').forEach(x=>x.classList.toggle('on',x.getAttribute('href')==='#'+el.id));
+  $$('.grp').forEach(g=>g.classList.toggle('open',g.dataset.v===v.id));
+  document.title=(el.dataset.title?(el.dataset.kicker?el.dataset.kicker+': ':'')+el.dataset.title+' – ':'')+'Advanced Algorithms – Revision Hub';
+  drawer(false);scrollTo(0,0);
+}
+
+/* 4. Mobile drawer and theme */
+const side=$('#side'),scrim=$('.scrim'),menu=$('.menu');
+function drawer(o){side.classList.toggle('open',o);scrim.hidden=!o;menu.setAttribute('aria-expanded',o)}
+menu.onclick=()=>drawer(!side.classList.contains('open'));
+scrim.onclick=()=>drawer(false);
+addEventListener('keydown',e=>{if(e.key==='Escape')drawer(false)});
+const root=document.documentElement;
+try{const t=localStorage.getItem('theme');if(t)root.dataset.theme=t}catch(e){}
+$('.theme').onclick=()=>{
+  const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches,n=dark?'light':'dark';
+  root.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}
+};
+addEventListener('hashchange',route);route();
+</script>
+
+<script>
+/* ===== Game layer: XP, ranks, progress, quizzes, timers, playground ===== */
+(()=>{
+const KEY='aa-cleared';
+const load=()=>{try{return new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){return new Set()}};
+const save=s=>{try{localStorage.setItem(KEY,JSON.stringify([...s]))}catch(e){}};
+let cleared=load();
+const levels=$$('.view>article[data-xp]');
+const total=levels.reduce((t,a)=>t+ +a.dataset.xp,0);
+const RANKS=[[0,'Lost Beginner'],[.12,'Loop Apprentice'],[.3,'Big-O Scout'],[.45,'Pointer Tamer'],[.65,'List Knight'],[.85,'Algorithm Hero'],[1,'20/20 Legend']];
+const BADGES=[['World 1 cleared',['lvl-0','lvl-1','lvl-2','lvl-3','lvl-4']],['Pointer Monster tamed',['lvl-6']],['World 2 cleared',['lvl-5','lvl-6','lvl-7','lvl-8','lvl-9','lvl-10']],['Golem defeated',['boss-1']],['Hydra defeated',['boss-2']]];
+
+/* sidebar XP meter */
+$('.brand').insertAdjacentHTML('afterend','<div class="xp" id="xpside"></div>');
+
+/* claim button at the end of every level */
+levels.forEach(a=>{
+  const box=mk('div','claim');box.dataset.id=a.id;
+  const pager=$('.pager',a);pager?pager.before(box):a.append(box);
+});
+
+function render(){
+  const xp=levels.filter(a=>cleared.has(a.id)).reduce((t,a)=>t+ +a.dataset.xp,0),pct=total?xp/total:0;
+  const rank=RANKS.filter(r=>pct>=r[0]).pop()[1],next=levels.find(a=>!cleared.has(a.id));
+  $('#xpside').innerHTML=`<b>${rank}</b> · ${xp} / ${total} XP<div class="bar"><div class="fill" style="width:${pct*100}%"></div></div>${cleared.size} of ${levels.length} levels cleared`;
+  $('#hud').innerHTML=`<div class="kicker">Your progress</div><div class="rank">${rank}</div><div class="bar"><div class="fill" style="width:${pct*100}%"></div></div>
+    <div class="stats"><span><b>${xp}</b> / ${total} XP</span><span>${cleared.size} / ${levels.length} levels cleared</span>${next?`<span>Next quest: <a href="#${next.id}">${next.dataset.kicker} · ${next.dataset.title}</a></span>`:'<span>Every level cleared. You are ready. 🏆</span>'}</div>
+    <div class="badges">${BADGES.map(([n,ids])=>`<span class="badge ${ids.every(i=>cleared.has(i))?'on':''}">🏅 ${n}</span>`).join('')}</div>`;
+  $$('.claim').forEach(c=>{
+    const a=document.getElementById(c.dataset.id),done=cleared.has(a.id);
+    c.classList.toggle('done',done);
+    c.innerHTML=done?`<p>Level cleared · +${a.dataset.xp} XP earned</p><button type="button">✓ Cleared (click to undo)</button>`
+      :`<p>Could you redo every challenge here without peeking?</p><button type="button">Claim +${a.dataset.xp} XP · mark as cleared</button>`;
+  });
+  $$('.sub a').forEach(l=>l.classList.toggle('done',cleared.has(l.getAttribute('href').slice(1))));
+  $$('.index .row').forEach(r=>r.classList.toggle('done',cleared.has(r.getAttribute('href').slice(1))));
+}
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.claim button');
+  if(c){const id=c.closest('.claim').dataset.id;cleared.has(id)?cleared.delete(id):cleared.add(id);save(cleared);render()}
+  const li=e.target.closest('.quiz li');
+  if(li){li.classList.remove('ok','bad');void li.offsetWidth;li.classList.add(li.hasAttribute('data-ok')?'ok':'bad')}
+});
+render();
+
+/* exam timers */
+$$('.timer').forEach(t=>{
+  const full=+t.dataset.min*60;let left=full,id=null;
+  t.innerHTML='<span class="clock"></span><button type="button">Start the clock</button><button type="button" class="ghost">Reset</button>';
+  const clock=$('.clock',t),[go,reset]=$$('button',t);
+  const show=()=>{const m=Math.floor(left/60),s=left%60;clock.textContent=`${m}:${String(s).padStart(2,'0')}`;t.classList.toggle('late',left<=600)};
+  go.onclick=()=>{if(id){clearInterval(id);id=null;go.textContent='Resume'}else{id=setInterval(()=>{if(left>0){left--;show()}else{clearInterval(id);id=null;clock.textContent="Time's up"}},1000);go.textContent='Pause'}};
+  reset.onclick=()=>{clearInterval(id);id=null;left=full;go.textContent='Start the clock';show()};
+  show();
+});
+
+/* linked-list playground */
+const pg=$('#playground');
+if(pg){
+  let list,hot=null;
+  pg.innerHTML=`<div class="ctl"><label>ID <input id="pg-v" type="number" value="150"></label><label>after ID <input id="pg-a" type="number" value="101"></label></div>
+  <div class="ctl"><button data-op="ib">insertBeginning</button><button data-op="ie">insertEnd</button><button data-op="ia">insertAfter</button><button data-op="db">deleteBeginning</button><button data-op="de">deleteEnd</button><button data-op="dk">deleteByID</button><button data-op="reset">reset</button></div>
+  <div class="chain" aria-live="polite"></div><div class="msg"></div><pre><code></code></pre>`;
+  const chain=$('.chain',pg),msg=$('.msg',pg),code=$('pre code',pg);
+  const draw=()=>{chain.innerHTML='<span class="hd">head</span><span class="arrow">→</span>'+list.map(v=>`<span class="nd ${v===hot?'hot':''}"><span>${v}</span><span>next</span></span><span class="arrow">→</span>`).join('')+'<span class="nul">NULL</span>'};
+  const say=(m,c)=>{msg.textContent=m;code.textContent=c};
+  const reset=()=>{list=[101,102,103];hot=null;draw();say('Pick an operation. The C lines that run appear below.','struct node *head; // head -> 101 -> 102 -> 103 -> NULL')};
+  pg.addEventListener('click',e=>{
+    const b=e.target.closest('button[data-op]');if(!b)return;
+    const v=+$('#pg-v',pg).value,a=+$('#pg-a',pg).value,op=b.dataset.op;hot=null;
+    if(op!=='reset'&&(!$('#pg-v',pg).value||isNaN(v))){say('Type an ID first.','');return}
+    if(op==='reset')return reset();
+    if(op[0]==='i'&&list.includes(v)){say(`ID ${v} is already in the list. Choose another ID.`,'');return}
+    if(op==='ib'){list.unshift(v);hot=v;say('O(1): no traversal, whatever the length.',`newNode = malloc(sizeof(struct node));\nnewNode->eventID = ${v};\nnewNode->next = *head;   // new -> ${list[1]??'NULL'}\n*head = newNode;         // head -> ${v}`)}
+    if(op==='ie'){const w=list.length;list.push(v);hot=v;say(`O(n): walked ${Math.max(w-1,0)} step(s) to reach the last node.`,w?`newNode->next = NULL;\ncurrent = *head;\nwhile (current->next != NULL)   // ${w-1} hop(s)\n    current = current->next;\ncurrent->next = newNode;        // ${list[w-1]} -> ${v}`:`newNode->next = NULL;\n*head = newNode;   // the list was empty\nreturn;`)}
+    if(op==='ia'){const i=list.indexOf(a);if(i<0){say(`O(n): walked the whole list, and ${a} was not found. Nothing inserted.`,`while (current != NULL && current->eventID != ${a})\n    current = current->next;\nif (current == NULL) return;   // not found`);return}
+      const nx=list[i+1];list.splice(i+1,0,v);hot=v;say(`O(n): ${i} hop(s) to find ${a}, then O(1) relinking.`,`// current is on ${a}\nnewNode->next = current->next;   // ${v} -> ${nx??'NULL'}   (step 1: grab the successor)\ncurrent->next = newNode;         // ${a} -> ${v}   (step 2: redirect)`)}
+    if(op==='db'){if(!list.length){say('Empty list: nothing to delete.','if (*head == NULL) { printf("List is empty\\n"); return; }');draw();return}const x=list.shift();say('O(1): remember, move head, free.',`temp = *head;            // temp -> ${x}\n*head = (*head)->next;   // head -> ${list[0]??'NULL'}\nfree(temp);              // ${x} released`)}
+    if(op==='de'){if(!list.length){say('Empty list: nothing to delete.','if (*head == NULL) return;');draw();return}
+      if(list.length===1){const x=list.pop();say('One-node case: head must become NULL.',`free(*head);     // ${x} released\n*head = NULL;`)}
+      else{const x=list.pop();say(`O(n): walked ${list.length} hop(s) with previous/current.`,`while (current->next != NULL) { previous = current; current = current->next; }\nprevious->next = NULL;   // ${list[list.length-1]} is the new end\nfree(current);           // ${x} released`)}}
+    if(op==='dk'){const i=list.indexOf(v);if(i<0){say(`O(n): ${v} not found after walking the whole list.`,'if (current == NULL) { printf("Event not found\\n"); return; }');draw();return}
+      list.splice(i,1);say(`O(n): found ${v} after ${i} hop(s).`,i===0?`// previous == NULL: deleting the first node\n*head = current->next;   // head -> ${list[0]??'NULL'}\nfree(current);`:`previous->next = current->next;   // ${list[i-1]} -> ${list[i]??'NULL'}\nfree(current);                    // ${v} released`)}
+    draw();
+  });
+  reset();
+}
+})();
+</script>
+</body>
+</html>
